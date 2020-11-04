@@ -19,43 +19,73 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
+// BEFORE: Route::group(['middleware' => ['web', 'auth']], function(){
+Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 
-Route::group(['middleware' => ['web', 'auth']], function(){
 
-		
-	      Route::prefix('admin')->group(function () {
-
-	        	Route::get('/dashboard', function(){
-	        		
-	        		return view('home');
-	        	
-	        	})->middleware('verified');
-			});
-
-	   
-	    	Route::prefix('user')->group(function () {
-
-	        	Route::get('/accaunt', function(){
-	        		
-	        		return view('home');
-	        	
-	        	})->middleware('verified');
-			});
-	  
-
-	        Route::prefix('organizator')->group(function () {
+	        //Route::prefix('organizator')->group(function () {
 
 	        	Route::get('/home', function(){
 	        		
 	        		return view('home');
 	        	
+	        	});//->middleware('verified');
+
+	        	Route::get('/sportsmens', function(){
+	        		
+	        		return view('sportsmen.show-all');
+	        	
 	        	})->middleware('verified');
+
+	        	Route::get('/sportsmens/{id}', function(){
+	        		
+	        		return view('sportsmen.detail');
+	        	
+	        	})->middleware('verified');
+			//});
+
+	        // Super Admin
+			Route::group(['prefix' => 'administrator', 'namespace' => 'Admin'], function() {
+			       
+			       Route::get('/', 'AdminController@index')->name('admin.index');
+
+				   Route::get('/edit-turnir/{id}', 'AdminController@editTurnir')->name('admin.edit-turnir');
+				   Route::get('/delete-turnir/{id}', 'AdminController@deleteTurnir')->name('admin.delete-turnir');
+
+				   Route::get('/edit-player/{id}', 'AdminController@editPlayer')->name('admin.edit-player');
+				   Route::get('/delete-player/{id}', 'AdminController@deletePlayer')->name('admin.delete-player');			       
+			});
+
+			// User 
+			Route::group(['prefix' => 'user', 'namespace' => 'User'], function() {
+			   		
+			   		Route::get('/', 'UserController@index')->name('user.index');  
+
+			   		Route::get('/live-turnir', 'UserController@liveTurnit')->name('user.live-turnir');  
+			   		Route::get('/old-turnir', 'UserController@oldTurnir')->name('user.old-turnir');    
+
+			   		Route::get('/forecast-turnir', 'UserController@forecast')->name('user.forecast');  
+			});
+
+			// Admin - Oraganizator turniry
+			Route::group(['prefix' => 'organizator', 'namespace' => 'Organizator'], function() {
+			        
+			        Route::get('/{id}', 'OrganizatorController@index')->name('organizator.index');
+
+			        Route::get('/create-turnir', 'OrganizatorController@createTurnir')->name('organizator.create-turnir');// Create turnir
+			        Route::get('/new-player', 'OrganizatorController@newPlayer')->name('organizator.new-player');// Create player
+			        
+			        // Route::get('edit/{id}', 'OrganizatorController@edit')->name('organizator.edit');
+			        // Route::delete('delete/{id}', 'OrganizatorController@destroy')->name('organizator.delete');
 			});
 	    
-        
+        	// https://webdevetc.com/programming-tricks/laravel/laravel-routes/how-to-namespace-a-laravel-route-group/
 
 });
 
+// 
+// Example
+// 
 // Route::group(['prefix' => 'user', 'namespace' => 'Admin'], function() {
 //         Route::get('/', 'UserController@index')->name('user.index');
 //         Route::get('create', 'UserController@create')->name('user.create');
