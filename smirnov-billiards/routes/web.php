@@ -25,9 +25,23 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 
 	        //Route::prefix('organizator')->group(function () {
 
+			
+
 	        	Route::get('/home', function(){
 	        		
-	        		return view('home');
+	        		if(Auth::user()->role == 'organizator'){            
+
+	        			return view('org');
+
+        			}else if(Auth::user()->role == 'admin'){
+
+        				return view('admin');
+        			}else{
+
+        				return view('user');
+        			}
+
+	        		//return view('home');
 	        	
 	        	});//->middleware('verified');
 

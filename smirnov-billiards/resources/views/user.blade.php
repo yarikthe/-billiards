@@ -1,6 +1,6 @@
 
-    @extends('layouts.org')
-    @section('content-org')
+    @extends('layouts.user')
+    @section('content')
 
 
 
