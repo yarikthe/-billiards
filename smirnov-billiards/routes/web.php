@@ -29,7 +29,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 
 	        	Route::get('/home', function(){
 	        		
-	        		if(Auth::user()->role == 'organizator'){            
+	        		if(Auth::user()->role == 'org'){            
 
 	        			return view('org');
 

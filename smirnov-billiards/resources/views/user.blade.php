@@ -10,7 +10,7 @@
           </div>
           <div class="info-wrapper">
             <p class="user-name">{{ Auth::user()->name }}</p>
-            <h6 class="display-income">$3,400,00</h6>
+            <h6 class="display-income">${{ Auth::user()->balance }}</h6>
           </div>
         </div>
         <ul class="navigation-menu">
