@@ -20,6 +20,7 @@ class CreatePlayersTable extends Migration
             $table->string('sportTitul')->default('Sportsmen');
             $table->string('city');
             $table->date('dateBorn');
+            $table->string('countPointStart');
             $table->timestamps();
         });
     }
