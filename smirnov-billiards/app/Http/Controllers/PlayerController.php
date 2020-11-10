@@ -78,8 +78,16 @@ class PlayerController extends Controller
      * @param  \App\Models\Player  $player
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Player $player)
+    public function destroy($playerID)
     {
-        //
+        // Delete player by id
+        $player = Player::find($playerID);
+
+        if( $player->delete() ){
+
+            return redirect('/players-list');
+        }else{
+            // show error alert
+        }
     }
 }
