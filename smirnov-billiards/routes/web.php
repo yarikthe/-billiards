@@ -17,6 +17,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/turnirs', function () {
+    return view('turnirs.index');
+});
+
+Route::get('/players', 'PlyaerController@index');
+
+Route::get('/players/{id}', 'PlyaerController@showPlayerByID')->name('player.show');
+
+Route::get('/about', function () {
+    return view('public.about');
+});
+
+Route::get('/error', function () {
+    return view('public.error');
+});
+
+//Route::post('/profile', 'UserController@update_avatar');
+
 Auth::routes(['verify' => true]);
 
 // BEFORE: Route::group(['middleware' => ['web', 'auth']], function(){
@@ -88,7 +106,10 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 
 			        Route::get('/create-turnir', 'OrganizatorController@createTurnir')->name('organizator.create-turnir');// Create turnir
 			        Route::get('/new-player', 'OrganizatorController@newPlayer')->name('organizator.new-player');// Create player
-			        
+
+					Route::get('/hidden/turnit/{id}', 'OrganizatorController@hidden')->name('organizator.turnir-hidden');
+					Route::get('/show/show/{id}', 'OrganizatorController@show')->name('organizator.turnir-show');
+
 			        // Route::get('edit/{id}', 'OrganizatorController@edit')->name('organizator.edit');
 			        // Route::delete('delete/{id}', 'OrganizatorController@destroy')->name('organizator.delete');
 			});

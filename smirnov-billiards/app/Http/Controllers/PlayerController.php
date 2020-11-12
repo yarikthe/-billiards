@@ -14,7 +14,9 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        //
+        $players = Player::all();
+
+        return view('players.index', compact('players'));
     }
 
     /**
@@ -22,9 +24,40 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        //new player create
+        $player = new Player();
+        
+        $player->name = $request->input('name');
+
+        $filename = '';
+
+        $request->validate([
+            'img' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+        ]);
+
+
+        if($request->hasFile('img')){
+     
+          $avatar = $request->file('img'); 
+          $filename = time() . '.' . $avatar->getClientOriginalExtension();
+          Image::make($avatar)->save( storage_path() . '/app/public/files/img/players/' . $filename );
+          // Image::make($avatar)->resize(300, 300)->save( public_path('/img/portfolio/') . $filename );
+        }
+
+        $player->photo = $filename;
+        $player->sportTitul = $request->input('sportTitul');
+        $player->city = $request->input('city');
+        $player->dateBorn = $request->input('dateBorn');
+        $player->countPointStart = $request->input('countPointStart');
+        
+        if($player->save()){
+            return redirect('/players');
+        }else{
+            return redirect('/error');
+        }
+
     }
 
     /**
@@ -44,9 +77,13 @@ class PlayerController extends Controller
      * @param  \App\Models\Player  $player
      * @return \Illuminate\Http\Response
      */
-    public function show(Player $player)
+    public function show($id)
     {
-        //
+        //show player by id
+
+        $player = Player::find($id);
+
+        return view('players.show', compact('player'));
     }
 
     /**
@@ -55,9 +92,32 @@ class PlayerController extends Controller
      * @param  \App\Models\Player  $player
      * @return \Illuminate\Http\Response
      */
-    public function edit(Player $player)
+    public function edit(Request $request, $playerID)
     {
-        //
+        //edit player info by id
+        $player = Player::find($playerID);
+
+        $player->name = $request->input('name');
+
+        if($request->hasFile('avatar')){
+	      
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)->save( public_path('/storage/files/1/img/avatars/' . $filename ) );
+  
+            $player->photo = $filename;
+        }
+
+        $player->sportTitul = $request->input('sportTitul');
+        $player->city = $request->input('city');
+        $player->dateBorn = $request->input('dateBorn');
+        $player->countPointStart = $request->input('countPointStart');
+
+        if($player->save()){
+            return redirect('/players');
+        }else{
+            return redirect('/error');
+        }
     }
 
     /**
@@ -67,7 +127,7 @@ class PlayerController extends Controller
      * @param  \App\Models\Player  $player
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Player $player)
+    public function update()
     {
         //
     }
@@ -85,9 +145,9 @@ class PlayerController extends Controller
 
         if( $player->delete() ){
 
-            return redirect('/players-list');
+            return redirect('/players');
         }else{
-            // show error alert
+            return redirect('/error');
         }
     }
 }

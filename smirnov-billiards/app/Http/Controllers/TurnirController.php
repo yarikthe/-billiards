@@ -24,7 +24,23 @@ class TurnirController extends Controller
      */
     public function create()
     {
-        //
+        //new turnir
+        $turnir = new Turnir();
+
+        $turnir->name = $request->input('name');
+        $turnir->desc = $request->input('desc');
+        $turnir->prizMoney = $request->input('prizMoney');
+        $turnir->place = $request->input('place');
+        $turnir->date_start = $request->input('date_start');
+        $turnir->date_end = $request->input('date_end');
+        $turnir->pointWin = 10;//$request->input('pointWin');
+        $turnir->organizator_id = Auth::user()->id;
+
+        if($turnir->save()){
+            return redirect('/turnirs');
+        }else{
+            return redirect('/error');
+        }
     }
 
     /**

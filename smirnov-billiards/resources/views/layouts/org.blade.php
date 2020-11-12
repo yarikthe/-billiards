@@ -1,46 +1,39 @@
-
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Label - Premium Responsive Bootstrap 4 Admin & Dashboard Template</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
+    <!-- endinject -->
+    <!-- vendor css for this page -->
+    <!-- End vendor css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../assets/css/shared/style.css">
+    <!-- endinject -->
+    <!-- Layout style -->
+    <link rel="stylesheet" href="../assets/css/demo_1/style.css">
+    <!-- Layout style -->
+    <link rel="shortcut icon" href="https://img.icons8.com/cotton/452/billiard-ball.png" />
+  </head>
+  <body class="header-fixed">
+    <!-- partial:partials/_header.html -->
+    <nav class="t-header">
+      <div class="t-header-brand-wrapper">
+        <a href="index.html">
+          <img class="logo" src="https://img.icons8.com/cotton/452/billiard-ball.png" alt="">
+          <img class="logo-mini" src="https://img.icons8.com/cotton/452/billiard-ball.png" alt="">
+        </a>
+      </div>
+      <div class="t-header-content-wrapper">
+        <div class="t-header-content">
+          <button class="t-header-toggler t-header-mobile-toggler d-block d-lg-none">
+            <i class="mdi mdi-menu"></i>
+          </button>
+          <ul class="nav ml-auto">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>ORGANIZATOR {{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                  ORGANIZATOR  {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -54,14 +47,14 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                <i>Організатор #{{ Auth::user()->id }}</i>    {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Вийти') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -70,17 +63,119 @@
                                 </div>
                             </li>
                         @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                    </ul></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="page-body">
+      <!-- partial:partials/_sidebar.html -->
+      <div class="sidebar">
+        <div class="user-profile">
+          <div class="display-avatar animated-avatar">
+            <img class="profile-img img-lg rounded-circle" src="../assets/images/profile/male/image_1.png" alt="profile image">
+          </div>
+          <div class="info-wrapper">
+            <p class="user-name">{{ Auth::user()->name }}</p>
+            <h6 class="display-income">${{ Auth::user()->balance }}</h6>
+          </div>
+        </div>
+        <ul class="navigation-menu">
+          <li class="nav-category-divider">Основне</li>
+          <li>
+            <a href="index.html">
+              <span class="link-title">Головна</span>
+              <i class="mdi mdi-gauge link-icon"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#sample-pages" data-toggle="collapse" aria-expanded="false">
+              <span class="link-title">Турніри</span>
+              <i class="mdi mdi-flask link-icon"></i>
+            </a>
+            <ul class="collapse navigation-submenu" id="sample-pages">
+              <li>
+                <a href="pages/sample-pages/login_1.html" target="_blank">Новий турнір</a>
+              </li>
+              <li>
+                <a href="pages/sample-pages/error_2.html" target="_blank">Всі турніри</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#ui-elements" data-toggle="collapse" aria-expanded="false">
+              <span class="link-title">Гравці</span>
+              <i class="mdi mdi-bullseye link-icon"></i>
+            </a>
+            <ul class="collapse navigation-submenu" id="ui-elements">
+              <li>
+                <a href="pages/ui-components/buttons.html">Новий гравець</a>
+              </li>
+              <li>
+                <a href="pages/ui-components/tables.html">Всі гравці</a>
+              </li>
+              <li>
+                <a href="pages/ui-components/typography.html">Додати гравця в турнір</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="pages/forms/form-elements.html">
+              <span class="link-title">Статистика</span>
+              <i class="mdi mdi-clipboard-outline link-icon"></i>
+            </a>
+          </li>
+          <li>
+            <a href="pages/charts/chartjs.html">
+              <span class="link-title">Ставки</span>
+              <i class="mdi mdi-chart-donut link-icon"></i>
+            </a>
+          </li>
+          <li>
+            <a href="pages/icons/material-icons.html">
+              <span class="link-title">Прогноз</span>
+              <i class="mdi mdi-flower-tulip-outline link-icon"></i>
+            </a>
+          </li>
+        </ul>
 
-        <main class="py-4">
-            <h1>ORGANIZATOR Cabinet</h1>
-            @yield('content')
-        </main>
+      </div>
+      <!-- partial -->
+      <div class="page-content-wrapper">
+    @yield('content')
+     <!-- partial:partials/_footer.html -->
+     <footer class="footer">
+          <div class="row">
+            <div class="col-sm-6 text-center text-sm-right order-sm-1">
+              <ul class="text-gray">
+                <li><a href="#">Terms of use</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-6 text-center text-sm-left mt-3 mt-sm-0">
+              <small class="text-muted d-block">Copyright © 2020 <a href="#" target="_blank">Smirnov - Biliard</a>. All rights reserved</small>
+              <small class="text-gray mt-2">Made With <i class="mdi mdi-heart text-danger"></i> by Lukyanchuk Media</small>
+            </div>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- page content ends -->
     </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-</body>
+    <!--page body ends -->
+    <!-- SCRIPT LOADING START FORM HERE /////////////-->
+    <!-- plugins:js -->
+    <script src="../assets/vendors/js/core.js"></script>
+    <!-- endinject -->
+    <!-- Vendor Js For This Page Ends-->
+    <script src="../assets/vendors/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="../assets/js/charts/chartjs.addon.js"></script>
+    <!-- Vendor Js For This Page Ends-->
+    <!-- build:js -->
+    <script src="../assets/js/template.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+    <!-- endbuild -->
+  </body>
 </html>
