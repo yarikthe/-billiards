@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Player;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
+use App\Notifications\ArticlePublished;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class PlayerController extends Controller
 {
@@ -16,7 +22,7 @@ class PlayerController extends Controller
     {
         $players = Player::all();
 
-        return view('players.index', compact('players'));
+        return view('plyaers.index', compact('players'));
     }
 
     /**
@@ -24,7 +30,7 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function playerInsert(Request $request)
     {
         //new player create
         $player = new Player();

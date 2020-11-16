@@ -21,9 +21,9 @@ Route::get('/turnirs', function () {
     return view('turnirs.index');
 });
 
-Route::get('/players', 'PlyaerController@index');
+Route::get('/players', 'PlayerController@index');
 
-Route::get('/players/{id}', 'PlyaerController@showPlayerByID')->name('player.show');
+Route::get('/players/{id}', 'PlayerController@showPlayerByID')->name('player.show');
 
 Route::get('/about', function () {
     return view('public.about');
@@ -100,12 +100,19 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 			});
 
 			// Admin - Oraganizator turniry
-			Route::group(['prefix' => 'organizator', 'namespace' => 'Organizator'], function() {
+			Route::prefix('organizator')->group(function() {
 			        
-			        Route::get('/{id}', 'OrganizatorController@index')->name('organizator.index');
+			        Route::get('/', 'OrganizatorController@index')->name('organizator.index');
 
 			        Route::get('/create-turnir', 'OrganizatorController@createTurnir')->name('organizator.create-turnir');// Create turnir
-			        Route::get('/new-player', 'OrganizatorController@newPlayer')->name('organizator.new-player');// Create player
+					
+					Route::get('/new-player', function(){
+	        		
+						return view('plyaers.new');
+						
+						
+					});// Create player 
+					Route::post('/player-new/insert', 'PlayerController@playerInsert');
 
 					Route::get('/hidden/turnit/{id}', 'OrganizatorController@hidden')->name('organizator.turnir-hidden');
 					Route::get('/show/show/{id}', 'OrganizatorController@show')->name('organizator.turnir-show');

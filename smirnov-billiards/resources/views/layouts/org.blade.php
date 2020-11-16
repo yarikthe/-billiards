@@ -86,13 +86,11 @@
           <li>
             <a href="index.html">
               <span class="link-title">Головна</span>
-              <i class="mdi mdi-gauge link-icon"></i>
             </a>
           </li>
           <li>
             <a href="#sample-pages" data-toggle="collapse" aria-expanded="false">
               <span class="link-title">Турніри</span>
-              <i class="mdi mdi-flask link-icon"></i>
             </a>
             <ul class="collapse navigation-submenu" id="sample-pages">
               <li>
@@ -106,14 +104,13 @@
           <li>
             <a href="#ui-elements" data-toggle="collapse" aria-expanded="false">
               <span class="link-title">Гравці</span>
-              <i class="mdi mdi-bullseye link-icon"></i>
             </a>
             <ul class="collapse navigation-submenu" id="ui-elements">
               <li>
-                <a href="pages/ui-components/buttons.html">Новий гравець</a>
+                <a href="/organizator/new-player">Новий гравець</a>
               </li>
               <li>
-                <a href="pages/ui-components/tables.html">Всі гравці</a>
+                <a href="/players">Всі гравці</a>
               </li>
               <li>
                 <a href="pages/ui-components/typography.html">Додати гравця в турнір</a>
@@ -123,19 +120,16 @@
           <li>
             <a href="pages/forms/form-elements.html">
               <span class="link-title">Статистика</span>
-              <i class="mdi mdi-clipboard-outline link-icon"></i>
             </a>
           </li>
           <li>
             <a href="pages/charts/chartjs.html">
               <span class="link-title">Ставки</span>
-              <i class="mdi mdi-chart-donut link-icon"></i>
             </a>
           </li>
           <li>
             <a href="pages/icons/material-icons.html">
               <span class="link-title">Прогноз</span>
-              <i class="mdi mdi-flower-tulip-outline link-icon"></i>
             </a>
           </li>
         </ul>
