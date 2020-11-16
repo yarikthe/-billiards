@@ -84,7 +84,7 @@
         <ul class="navigation-menu">
           <li class="nav-category-divider">Основне</li>
           <li>
-            <a href="index.html">
+            <a href="/home">
               <span class="link-title">Головна</span>
             </a>
           </li>

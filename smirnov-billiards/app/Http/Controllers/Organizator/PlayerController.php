@@ -1,17 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Organizator;
+use Intervention\Image\ImageManagerStatic as Image;
+use App\Player;
 
-use App\Models\Player;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Controllers\Controller;
-use App\Notifications\ArticlePublished;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
-class PlayerController extends Controller
+class PlayerController //extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +17,7 @@ class PlayerController extends Controller
     {
         $players = Player::all();
 
-        return view('plyaers.index', compact('players'));
+        return view('plyaers.index', compact("players"));
     }
 
     /**
@@ -30,7 +25,7 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function playerInsert(Request $request)
+    public function insert(Request $request)
     {
         //new player create
         $player = new Player();
@@ -48,8 +43,8 @@ class PlayerController extends Controller
      
           $avatar = $request->file('img'); 
           $filename = time() . '.' . $avatar->getClientOriginalExtension();
-          Image::make($avatar)->save( storage_path() . '/app/public/files/img/players/' . $filename );
-          // Image::make($avatar)->resize(300, 300)->save( public_path('/img/portfolio/') . $filename );
+          //Image::make($avatar)->save( storage_path() . '/app/public/files/img/players/' . $filename );
+          Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/players/') . $filename );
         }
 
         $player->photo = $filename;
@@ -59,12 +54,30 @@ class PlayerController extends Controller
         $player->countPointStart = $request->input('countPointStart');
         
         if($player->save()){
-            return redirect('/players');
+            return redirect('/organizator/players/');
         }else{
             return redirect('/error');
         }
 
     }
+
+    public function update_avatar(Request $request){
+
+        // Handle the user upload of avatar
+        if($request->hasFile('avatar')){
+          
+          $avatar = $request->file('avatar');
+          $filename = time() . '.' . $avatar->getClientOriginalExtension();
+          Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
+    
+          $user = Auth::user();
+          $user->avatar = $filename;
+          $user->save();
+        }
+    
+        return view('profile', array('user' => Auth::user()) );
+    
+      }
 
     /**
      * Store a newly created resource in storage.
@@ -98,29 +111,19 @@ class PlayerController extends Controller
      * @param  \App\Models\Player  $player
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $playerID)
+    public function update(Request $request, $playerID)
     {
         //edit player info by id
         $player = Player::find($playerID);
 
-        $player->name = $request->input('name');
-
-        if($request->hasFile('avatar')){
-	      
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300, 300)->save( public_path('/storage/files/1/img/avatars/' . $filename ) );
-  
-            $player->photo = $filename;
-        }
-
-        $player->sportTitul = $request->input('sportTitul');
-        $player->city = $request->input('city');
-        $player->dateBorn = $request->input('dateBorn');
-        $player->countPointStart = $request->input('countPointStart');
+        $player->name = $request->name;
+        $player->sportTitul = $request->sportTitul;
+        $player->city = $request->city;
+        $player->dateBorn = $request->dateBorn;
+        $player->countPointStart = $request->countPointStart;
 
         if($player->save()){
-            return redirect('/players');
+            return redirect('/organizator/players');
         }else{
             return redirect('/error');
         }
@@ -133,9 +136,12 @@ class PlayerController extends Controller
      * @param  \App\Models\Player  $player
      * @return \Illuminate\Http\Response
      */
-    public function update()
+    public function edit($id)
     {
         //
+        $player = Player::find($id);
+
+        return view('plyaers.edit', compact('player'));
     }
 
     /**
@@ -151,7 +157,7 @@ class PlayerController extends Controller
 
         if( $player->delete() ){
 
-            return redirect('/players');
+            return redirect('/organizator/players');
         }else{
             return redirect('/error');
         }

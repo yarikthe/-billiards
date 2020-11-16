@@ -13,37 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function () { return view('welcome'); });
+Route::get('/turnirs', function () { return view('turnirs.index'); });
+Route::get('/about', function () { return view('public.about'); });
+Route::get('/error', function () { return view('public.error'); });
+Route::get('storage/{filename}', function ($filename)
+{
+    $path = storage_path('public/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
 });
-
-Route::get('/turnirs', function () {
-    return view('turnirs.index');
-});
-
-Route::get('/players', 'PlayerController@index');
-
-Route::get('/players/{id}', 'PlayerController@showPlayerByID')->name('player.show');
-
-Route::get('/about', function () {
-    return view('public.about');
-});
-
-Route::get('/error', function () {
-    return view('public.error');
-});
-
-//Route::post('/profile', 'UserController@update_avatar');
 
 Auth::routes(['verify' => true]);
 
-// BEFORE: Route::group(['middleware' => ['web', 'auth']], function(){
 Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
-
-
-	        //Route::prefix('organizator')->group(function () {
-
-			
 
 	        	Route::get('/home', function(){
 	        		
@@ -58,81 +51,38 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 
         				return view('user');
         			}
-
-	        		//return view('home');
 	        	
 	        	});//->middleware('verified');
 
-	        	Route::get('/sportsmens', function(){
-	        		
-	        		return view('sportsmen.show-all');
-	        	
-	        	})->middleware('verified');
-
-	        	Route::get('/sportsmens/{id}', function(){
-	        		
-	        		return view('sportsmen.detail');
-	        	
-	        	})->middleware('verified');
-			//});
 
 	        // Super Admin
 			Route::group(['prefix' => 'administrator', 'namespace' => 'Admin'], function() {
 			       
-			       Route::get('/', 'AdminController@index')->name('admin.index');
-
-				   Route::get('/edit-turnir/{id}', 'AdminController@editTurnir')->name('admin.edit-turnir');
-				   Route::get('/delete-turnir/{id}', 'AdminController@deleteTurnir')->name('admin.delete-turnir');
-
-				   Route::get('/edit-player/{id}', 'AdminController@editPlayer')->name('admin.edit-player');
-				   Route::get('/delete-player/{id}', 'AdminController@deletePlayer')->name('admin.delete-player');			       
+			    //    Route::get('/', 'AdminController@index')->name('admin.index');			       
 			});
 
 			// User 
 			Route::group(['prefix' => 'user', 'namespace' => 'User'], function() {
 			   		
-			   		Route::get('/', 'UserController@index')->name('user.index');  
-
-			   		Route::get('/live-turnir', 'UserController@liveTurnit')->name('user.live-turnir');  
-			   		Route::get('/old-turnir', 'UserController@oldTurnir')->name('user.old-turnir');    
-
-			   		Route::get('/forecast-turnir', 'UserController@forecast')->name('user.forecast');  
+			   		// Route::get('/', 'UserController@index')->name('user.index');  
 			});
 
 			// Admin - Oraganizator turniry
-			Route::prefix('organizator')->group(function() {
-			        
-			        Route::get('/', 'OrganizatorController@index')->name('organizator.index');
+			Route::group(['prefix' => 'organizator', 'namespace' => 'Organizator'], function() {
 
-			        Route::get('/create-turnir', 'OrganizatorController@createTurnir')->name('organizator.create-turnir');// Create turnir
+				Route::get('/new-player', function(){
+				
+					return view('plyaers.new');
 					
-					Route::get('/new-player', function(){
-	        		
-						return view('plyaers.new');
-						
-						
-					});// Create player 
-					Route::post('/player-new/insert', 'PlayerController@playerInsert');
+					
+				});// Create player 
+				Route::post('/player/insert/', 'PlayerController@insert');
 
-					Route::get('/hidden/turnit/{id}', 'OrganizatorController@hidden')->name('organizator.turnir-hidden');
-					Route::get('/show/show/{id}', 'OrganizatorController@show')->name('organizator.turnir-show');
-
-			        // Route::get('edit/{id}', 'OrganizatorController@edit')->name('organizator.edit');
-			        // Route::delete('delete/{id}', 'OrganizatorController@destroy')->name('organizator.delete');
+				Route::get('/player/edit/{id}', 'PlayerController@edit')->name('player.edit');
+				Route::post('/player/update/{id}', 'PlayerController@update')->name('player.update');
+				Route::get('/player/destroy/{id}', 'PlayerController@destroy')->name('player.destroy');
+				Route::get('/players', 'PlayerController@index');
+			
 			});
-	    
-        	// https://webdevetc.com/programming-tricks/laravel/laravel-routes/how-to-namespace-a-laravel-route-group/
-
+        
 });
-
-// 
-// Example
-// 
-// Route::group(['prefix' => 'user', 'namespace' => 'Admin'], function() {
-//         Route::get('/', 'UserController@index')->name('user.index');
-//         Route::get('create', 'UserController@create')->name('user.create');
-//         Route::post('store', 'UserController@store')->name('user.store');
-//         Route::get('edit/{id}', 'UserController@edit')->name('user.edit');
-//         Route::put('update/{id}', 'UserController@update')->name('user.update');
-//         Route::delete('delete/{id}', 'UserController@destroy')->name('user.delete');
-// });

@@ -2,42 +2,42 @@
 @section('content')
 
 <div class="contaoner col-md-8">
-<form method="POST" action="/organizator/player/insert/" enctype="multipart/form-data">
+<form method="POST" action="{{ route('player.update', ['id' => $player->id]) }}" enctype="multipart/form-data">
 						  @csrf  
 						  <h5>Нова гравець</h5><hr>
 						  <div class="form-group"><label>Фотографія</label>
                             
-						    	 <img id="preview" src="https://lh3.googleusercontent.com/proxy/DxYP3onCuWC3_YaAlvdJH06Peaf-a-4fLLl_hf4aDJlhzvrItVnEtV2zHKwpGPm4FG4XzYlsj9F07fC2CIQBYEQTOjzDLub2MCjtuPTfhfoJeg" class="card-img-top w-50"> 
+						    	 <img id="preview" src="/uploads/players/{{ $player->photo }}" class="card-img-top w-50"> 
 								 <br> <br>
-						    	 <input type="file" name="img" onchange="readURL(this);" required>
+						    	 <input type="file" name="img" onchange="readURL(this);">
                                  
 						  </div>
 						  <div class="form-group"><label>ПІБ</label>
 						  	
-						    	<input type="text" name="name" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" placeholder="ПІБ" required>
+						    	<input type="text" name="name" value="{{ $player->name }}" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" placeholder="ПІБ" required>
 						  	
 						  </div>
                           <div class="form-group"><label>Дата народження</label>
-                          <input type="date" id="dateBorn" name="dateBorn" class="form-control" value="">
+                          <input type="date" id="dateBorn"  value="{{ $player->dateBorn }}" name="dateBorn" class="form-control" value="">
                           </div>
                           <div class="form-group"><label>Звання спортивне</label>
 						  	
-						    	<input type="text" name="sportTitul" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" placeholder="Спортивне звання" required>
+						    	<input type="text" name="sportTitul"   value="{{ $player->sportTitul }}" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" placeholder="Спортивне звання" required>
 						  	
 						  </div>
                           <div class="form-group"><label>Місто</label>
 						  	
-						    	<input type="text" name="city" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" placeholder="Місто" required>
+						    	<input type="text" name="city"  value="{{ $player->city }}" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" placeholder="Місто" required>
 						  	
 						  </div>
 
                           <div class="form-group"><label>Почткові очки</label>
                           
-                                <input type="number" id="countPointStart" name="countPointStart" min="100" max="1000">
+                                <input type="number" id="countPointStart"  value="{{ $player->countPointStart }}" name="countPointStart" min="100" max="1000">
                           </div>
 						 
 
-						  <button type="submit" class="btn btn-success">Додати</button>
+						  <button type="submit" class="btn btn-success">Оновити</button>
 			</form>
             <script type="text/javascript">
 					  	 function readURL(input) {

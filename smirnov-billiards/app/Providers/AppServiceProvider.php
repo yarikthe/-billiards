@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
+use ConsoleTVs\Charts\Registrar as Charts;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // $charts->register([
+        //     \App\Charts\SampleChart::class
+        // ]);
+
+        Schema::defaultStringLength(191);
     }
+
+
 }
