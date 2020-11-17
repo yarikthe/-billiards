@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Label - Premium Responsive Bootstrap 4 Admin & Dashboard Template</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="../assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
+    <link rel="stylesheet" href="/assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
     <!-- endinject -->
     <!-- vendor css for this page -->
     <!-- End vendor css for this page -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="../assets/css/shared/style.css">
+    <link rel="stylesheet" href="/assets/css/shared/style.css">
     <!-- endinject -->
     <!-- Layout style -->
-    <link rel="stylesheet" href="../assets/css/demo_1/style.css">
+    <link rel="stylesheet" href="/assets/css/demo_1/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="https://img.icons8.com/cotton/452/billiard-ball.png" />
   </head>
@@ -94,10 +94,10 @@
             </a>
             <ul class="collapse navigation-submenu" id="sample-pages">
               <li>
-                <a href="pages/sample-pages/login_1.html" target="_blank">Новий турнір</a>
+                <a href="/organizator/turnir/create-new" target="_blank">Новий турнір</a>
               </li>
               <li>
-                <a href="pages/sample-pages/error_2.html" target="_blank">Всі турніри</a>
+                <a href="/organizator/turnirs" target="_blank">Всі турніри</a>
               </li>
             </ul>
           </li>
@@ -110,7 +110,7 @@
                 <a href="/organizator/new-player">Новий гравець</a>
               </li>
               <li>
-                <a href="/players">Всі гравці</a>
+                <a href="/organizator/players">Всі гравці</a>
               </li>
               <li>
                 <a href="pages/ui-components/typography.html">Додати гравця в турнір</a>
@@ -160,16 +160,16 @@
     <!--page body ends -->
     <!-- SCRIPT LOADING START FORM HERE /////////////-->
     <!-- plugins:js -->
-    <script src="../assets/vendors/js/core.js"></script>
+    <script src="/assets/vendors/js/core.js"></script>
     <!-- endinject -->
     <!-- Vendor Js For This Page Ends-->
-    <script src="../assets/vendors/apexcharts/apexcharts.min.js"></script>
-    <script src="../assets/vendors/chartjs/Chart.min.js"></script>
-    <script src="../assets/js/charts/chartjs.addon.js"></script>
+    <script src="/assets/vendors/apexcharts/apexcharts.min.js"></script>
+    <script src="/assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="/assets/js/charts/chartjs.addon.js"></script>
     <!-- Vendor Js For This Page Ends-->
     <!-- build:js -->
-    <script src="../assets/js/template.js"></script>
-    <script src="../assets/js/dashboard.js"></script>
+    <script src="/assets/js/template.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
     <!-- endbuild -->
   </body>
 </html>

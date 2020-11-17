@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Organizator;
 use Intervention\Image\ImageManagerStatic as Image;
+use File; 
 use App\Player;
 
 use Illuminate\Http\Request;
@@ -25,6 +26,11 @@ class PlayerController //extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function new(){
+
+        return view('plyaers.new');
+    }
+
     public function insert(Request $request)
     {
         //new player create
@@ -102,7 +108,7 @@ class PlayerController //extends Controller
 
         $player = Player::find($id);
 
-        return view('players.show', compact('player'));
+        return view('plyaers.show', compact('player'));
     }
 
     /**
@@ -155,11 +161,23 @@ class PlayerController //extends Controller
         // Delete player by id
         $player = Player::find($playerID);
 
-        if( $player->delete() ){
+        $path = "uploads/players/";
+        $img = $player->photo;
 
-            return redirect('/organizator/players');
+        if(File::exists(public_path($path . $img))){
+            
+            File::delete(public_path($path . $img));
+            
+            if( $player->delete() ){
+
+                return redirect('/organizator/players');
+            }else{
+                return redirect('/error');
+            }
+
         }else{
-            return redirect('/error');
+            dd('File does not exists.');
         }
+
     }
 }

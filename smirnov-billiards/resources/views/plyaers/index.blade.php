@@ -40,7 +40,9 @@
                                <img src="/uploads/players/{{ $value->photo }}" alt="{{ $value->photo }}" class="rounded w-50">
                             </td>
 
-                            <td>{{ $value->name }}</td>
+                            <td>
+                              <a href="{{ route('player.show',$value->id) }}">{{ $value->name }} <i class="mdi mdi-share link-icon"></i></a>
+                            </td>
                             
                             <td> {{ $value->city }}</td>
                             <td> 

@@ -1,7 +1,7 @@
 @extends('layouts.org')
 @section('content')
 
-<div class="contaoner col-md-8">
+<div class="container">
 <form method="POST" action="{{ route('player.update', ['id' => $player->id]) }}" enctype="multipart/form-data">
 						  @csrf  
 						  <h5>Нова гравець</h5><hr>

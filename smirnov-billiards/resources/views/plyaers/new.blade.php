@@ -33,7 +33,7 @@
 
                           <div class="form-group"><label>Почткові очки</label>
                           
-                                <input type="number" id="countPointStart" name="countPointStart" min="100" max="1000">
+                                <input type="number" id="countPointStart" class="form-control"  name="countPointStart" min="100" max="1000">
                           </div>
 						 
 
