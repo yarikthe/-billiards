@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () { return view('welcome'); });
+Route::get('/go-to-previous-page', function () { return Redirect::back(); });
 Route::get('/turnirs', function () { return view('turnirs.index'); });
 Route::get('/about', function () { return view('public.about'); });
 Route::get('/error', function () { return view('public.error'); });
@@ -58,13 +59,16 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 	        // Super Admin
 			Route::group(['prefix' => 'administrator', 'namespace' => 'Admin'], function() {
 			       
-			    //    Route::get('/', 'AdminController@index')->name('admin.index');			       
+				//    Route::get('/', 'AdminController@index')->name('admin.index');	
+				// edit users, turnir, player		       
 			});
 
 			// User 
 			Route::group(['prefix' => 'user', 'namespace' => 'User'], function() {
 			   		
-			   		// Route::get('/', 'UserController@index')->name('user.index');  
+					   // Route::get('/', 'UserController@index')->name('user.index');
+					   
+					   // show player, turnir, forecast, stavka
 			});
 
 			// Admin - Oraganizator turniry
@@ -74,7 +78,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 				Route::get('/players', 'PlayerController@index');
 				Route::get('/new-player', 'PlayerController@new');
 				Route::post('/player/insert/', 'PlayerController@insert');
-				Route::get('/player/view/{id}', 'PlayerController@show')->name('player.show');
+				Route::get('/player/show/{id}', 'PlayerController@show')->name('player.show');
 				Route::get('/player/edit/{id}', 'PlayerController@edit')->name('player.edit');
 				Route::post('/player/update/{id}', 'PlayerController@update')->name('player.update');
 				Route::get('/player/destroy/{id}', 'PlayerController@destroy')->name('player.destroy');
@@ -84,7 +88,12 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 				Route::get('/turnirs', 'TurnirController@index');
 				Route::get('/turnir/create-new', 'TurnirController@new');
 				Route::post('/turnir/insert', 'TurnirController@insert');
-			
+				Route::get('/turnir/close/{id}', 'TurnirController@close')->name('turnir.close');
+				Route::get('/turnir/delete/{id}', 'TurnirController@delete')->name('turnir.delete');
+				Route::get('/turnir/cancel/{id}', 'TurnirController@cancel')->name('turnir.cancel');
+				Route::get('/turnir/public/{id}', 'TurnirController@public')->name('turnir.public');
+				Route::get('/turnir/hidden/{id}', 'TurnirController@hidden')->name('turnir.hidden');
+				Route::get('/turnir/show/{id}', 'TurnirController@show')->name('turnir.show');
 			});
         
 });

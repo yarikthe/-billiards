@@ -58,7 +58,7 @@
                     <div class="overflow-auto bg-light p-2 form-control h-25">
                         @foreach($players as $key => $value)
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="{{ $value->id }}" id="playerID">
+                            <input class="form-check-input" type="checkbox" value="{{ $value->id }}" name="players_id[]" id="playerID">
                             <label class="form-check-label" for="playerID">
                                 {{ $value->name }}
                             </label>

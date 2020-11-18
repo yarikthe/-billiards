@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SetPlayer extends Model
+class SetPleyer extends Model
 {
 	
     protected $table = 'set_pleyers';
