@@ -53,8 +53,11 @@
                           <input type="number" id="prizMoney" class="form-control" name="prizMoney" min="1000" max="1000000">
                     </div>
 
-                    <div class="form-group"><label>Додайте участників</label>
-
+                    <div class="form-group">
+                    <div class="d-flex justify-content-between">
+                        <label class="m-1 p-2">Додайте участників</label>
+                        <a href="/organizator/new-player" class="btn btn-primary m-2">Новий гравець</a>
+                    </div>
                     <div class="overflow-auto bg-light p-2 form-control h-25">
                         @foreach($players as $key => $value)
                         <div class="form-check">

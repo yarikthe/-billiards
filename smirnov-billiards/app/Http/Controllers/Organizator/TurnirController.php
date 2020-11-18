@@ -145,8 +145,65 @@ class TurnirController //extends Controller
         return view("turnirs.show", compact("show", "players", "player"));
     }   
 
+    public function edit($id)
+    {
+        $edit = Turnir::find($id);
+        $players = Player::all();
+        $player = SetPleyer::where("turnir_id", $id)->get();
+
+        return view('turnirs.edit', compact("players", "edit", "player"));
+    }
+
     public function update(Request $request, $id)
     {
+        $turnir = Turnir::find($id);
+
+        $turnir->name = $request->name;
+        $turnir->desc = $request->desc;
+        $turnir->place = $request->place;
+        $turnir->prizMoney = $request->prizMoney;
+        $turnir->date_start = $request->date_start;
+        $turnir->date_end = $request->date_end;
+        $turnir->win_player_id = 0;
+        $turnir->pointWin = 0;
+        $turnir->isPiblic = $request->isPiblic;
+        $turnir->isDone = 0;
+        $turnir->organizator_id = Auth::user()->id;
+
+        if ( $turnir->save()){
+
+            return redirect('/organizator/turnirs');
+
+        }else{
+            return redirect('/error');
+        }
+    }
+
+    public function remove($id)
+    {
+        $player = SetPleyer::where("player_id", $id);
+
+        if($player->delete()){
+
+            return redirect('/organizator/turnirs');
+
+        }else{
+            return redirect('/error');
+        }
+    }
+
+    public function playeradd(Request $request)
+    {
+
+        foreach($request->players_id as $key => $item)
+        {
+            $set_players = new SetPleyer();
+            $set_players->turnir_id = $request->t_id;
+            $set_players->player_id = $request->players_id[$key];                   
+            $set_players->save();
+        } 
+
+        return redirect('/organizator/turnirs');
 
     }
 }

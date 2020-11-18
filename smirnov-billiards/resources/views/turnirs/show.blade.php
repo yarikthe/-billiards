@@ -24,8 +24,34 @@
             <h3>
                 Інформація про турнір
             </h3>
+          
             <br>
             <table>
+                <tr>
+                    <td>Статус турніра: </td>
+                    <td>
+                        @if($show->isDone == 1)
+                            <label class="btn btn-success"> Турнір Завершений</label>
+                        @else
+                            <label class="btn btn-light"> Діючий</label>
+                            <a href="{{ route('turnir.public',$show->id) }}" class="btn btn-primary">Опублікувати</a>
+                        @endif 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Публікація турніра: 
+                    </td>
+                    <td>
+                        @if($show->isPiblic == 1)
+                            <label class="btn btn-success"> Турнір опублікований</label>
+                            <a href="{{ route('turnir.hidden',$show->id) }}" class="btn btn-light">Скрить</a>
+                        @else
+                            <label class="btn btn-light"> Не опублікований</label>
+                            <a href="{{ route('turnir.public',$show->id) }}" class="btn btn-primary">Опублікувати</a>
+                        @endif 
+                    </td>
+                </tr>
                 <tr>
                     <td>Місце проведення:</td>
                     <td> {{ $show->place }}</td>
@@ -50,9 +76,12 @@
                                 
                                 @if($value_id->player_id == $value->id)
                                     <a href="{{ route('player.show',$value->id) }}"> {{ $value->name }}</a>
+                                    @if($value->id == $show->win_player_id)
+                                        <i class="mdi mdi-crown link-icon bg-success p-2 rounded-lg text-white"></i> Переможець
+                                        (Очкі: {{ $show->pointWin }})
+                                    @endif
                                     <br>
                                 @endif
-                             
                             @endforeach
                         @endforeach
                     </td>
@@ -72,7 +101,9 @@
         </div>
 
    </div>     
-
+    <hr>
+   <a href="{{ route('turnir.delete',$show->id) }}" class="btn btn-danger">Видалити</a>
+   <a href="{{ route('turnir.edit',$show->id) }}" class="btn btn-light">Редагувати</a>
     
 </div>
 
