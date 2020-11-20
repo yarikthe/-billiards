@@ -7,6 +7,7 @@ use File;
 use App\Turnir;
 use App\Player;
 use App\SetPleyer;
+use App\Raund;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -205,5 +206,30 @@ class TurnirController //extends Controller
 
         return redirect('/organizator/turnirs');
 
+    }
+
+    public function genarateRound($turnirID)
+    {
+        // get count player in turnir
+
+        $players = SetPleyer::where("turnir_id", $turnirID);
+        $countPlayers = $players->count();
+
+        
+
+        // range point player  set point range: 0 - 200; 200 - 500; 500 - 700; 700 - 900; 900 - 1000+
+
+
+        return redirect('/organizator/turnirs');
+    }
+
+    public function roundWin()
+    {
+        // set id win player in round
+    }
+
+    public function koefSetOnPlayers()
+    {
+        // set koef on 2 players in on round
     }
 }

@@ -96,7 +96,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 				Route::get('/turnir/show/{id}', 'TurnirController@show')->name('turnir.show');
 				Route::get('/turnir/edit/{id}', 'TurnirController@edit')->name('turnir.edit');
 				Route::get('/turnir/remove/player/{id}', 'TurnirController@remove')->name('turnir.remove');
-				Route::post('/turnir/update', 'TurnirController@update');
+				Route::post('/turnir/update/{id}', 'TurnirController@update')->name('turnir.update');
 				Route::post('/turnir/insert-players', 'TurnirController@playeradd');
 			});
         
