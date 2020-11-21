@@ -25,10 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $charts->register([
-        //     \App\Charts\SampleChart::class
-        // ]);
-
         Schema::defaultStringLength(191);
     }
 

@@ -140,7 +140,7 @@
                         @else
                             <a href="{{ route('turnir.public',$value->id) }}" class="btn btn-primary">Опублікувати</a>
                         @endif 
-                        <a href="{{ route('turnir.cancel',$value->id) }}" class="btn btn-warning">Відмінити</a>
+                        
                   
                     </div>
                 </div>

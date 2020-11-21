@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Turnir;
+
 Route::get('/', function () { return view('welcome'); });
 Route::get('/go-to-previous-page', function () { return Redirect::back(); });
 Route::get('/turnirs', function () { return view('turnirs.index'); });
@@ -35,6 +37,10 @@ Route::get('storage/{filename}', function ($filename)
     return $response;
 });
 
+Route::get('/statisctics', function () { return view('statistics'); });
+Route::get('/prediction', function () { return view('prediction'); });
+Route::get('/stavka', function () { return view('stavka'); }); 
+Route::get('users', 'UserChartController@index');
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
@@ -43,7 +49,9 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 	        		
 	        		if(Auth::user()->role == 'org'){            
 
-	        			return view('org');
+						$turnirs = Turnir::where('organizator_id', Auth::user()->id)->get();
+
+	        			return view('org', compact("turnirs"));
 
         			}else if(Auth::user()->role == 'admin'){
 

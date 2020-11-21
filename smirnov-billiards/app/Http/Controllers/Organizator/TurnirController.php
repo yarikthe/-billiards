@@ -98,7 +98,7 @@ class TurnirController //extends Controller
     public function cancel($id){
         // is not public turnir
         $cancel = Turnir::find($id);
-        $cancel->isPublic = 0;
+        $cancel->isPiblic = 0;
         
         if($cancel->save()){
 
@@ -215,7 +215,9 @@ class TurnirController //extends Controller
         $players = SetPleyer::where("turnir_id", $turnirID);
         $countPlayers = $players->count();
 
-        
+        for($i = 1; $i <= $countPlayers; $i++){
+            
+        }
 
         // range point player  set point range: 0 - 200; 200 - 500; 500 - 700; 700 - 900; 900 - 1000+
 

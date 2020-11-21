@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/assets/css/demo_1/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="https://img.icons8.com/cotton/452/billiard-ball.png" />
+
   </head>
   <body class="header-fixed">
     <!-- partial:partials/_header.html -->
@@ -77,8 +78,8 @@
             <img class="profile-img img-lg rounded-circle" src="../assets/images/profile/male/image_1.png" alt="profile image">
           </div>
           <div class="info-wrapper">
+            <i>Організатор</i>
             <p class="user-name">{{ Auth::user()->name }}</p>
-            <h6 class="display-income">${{ Auth::user()->balance }}</h6>
           </div>
         </div>
         <ul class="navigation-menu">
@@ -112,11 +113,9 @@
               <li>
                 <a href="/organizator/players">Всі гравці</a>
               </li>
-              <li>
-                <a href="pages/ui-components/typography.html">Додати гравця в турнір</a>
-              </li>
             </ul>
           </li>
+          <!--
           <li>
             <a href="pages/forms/form-elements.html">
               <span class="link-title">Статистика</span>
@@ -132,6 +131,7 @@
               <span class="link-title">Прогноз</span>
             </a>
           </li>
+          -->
         </ul>
 
       </div>
