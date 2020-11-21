@@ -106,6 +106,11 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 				Route::get('/turnir/remove/player/{id}', 'TurnirController@remove')->name('turnir.remove');
 				Route::post('/turnir/update/{id}', 'TurnirController@update')->name('turnir.update');
 				Route::post('/turnir/insert-players', 'TurnirController@playeradd');
+
+				Route::post('/turnir/raund/insert', 'TurnirController@insertRaund');
+				Route::get('/turnir/raund/delete/{id}', 'TurnirController@deleteRaund')->name('turnir.delete-raund');
+				Route::get('/turnir/raund/win/{id}', 'TurnirController@showwin')->name('turnir.showwin');
+				Route::post('/turnir/raund/win/accept/{id}', 'TurnirController@winRaund')->name('turnir.win-raund');
 			});
         
 });

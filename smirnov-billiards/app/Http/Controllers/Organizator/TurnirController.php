@@ -142,8 +142,9 @@ class TurnirController //extends Controller
         $show = Turnir::find($id);
         $players = SetPleyer::where("turnir_id", $id)->get();
         $player = Player::all();
+        $raund = Raund::where("turnir_id", $id)->get();
 
-        return view("turnirs.show", compact("show", "players", "player"));
+        return view("turnirs.show", compact("show", "players", "player", "raund"));
     }   
 
     public function edit($id)
@@ -208,13 +209,72 @@ class TurnirController //extends Controller
 
     }
 
+    public function insertRaund(Request $request){
+
+        $raund = new Raund();
+        $raund->name = $request->input('name');
+        $raund->turnir_id = $request->input('turnir_id');
+        $raund->player_01_ID = $request->input('player_01_ID');
+        $raund->player_02_ID = $request->input('player_02_ID');
+        $raund->dateRaund = $request->input('dateRaund');
+        $raund->koefWin01 = $request->input('koefWin01');
+        $raund->koefWin02 = $request->input('koefWin02');
+        $raund->win_player_id = 0;
+        $raund->pointPlayer01 = 0;
+        $raund->pointPlayer02 = 0;
+        $raund->isDone = 0;
+
+        if($raund->save()){
+            return redirect('/organizator/turnirs');
+        }
+
+    }
+
+    public function deleteRaund($id){
+
+        $raund = Raund::find($id);
+
+        if($raund->delete()){
+
+            return redirect('/organizator/turnirs');
+
+        }else{
+            return redirect('/error');
+        }
+    }
+
+    public function showwin($id)
+    {
+        $raund = Raund::find($id);
+        $player = Player::all();
+
+        return view("turnirs.win", compact("player", "raund"));
+    }
+
+    public function winRaund(Request $request, $id)
+    {
+        $raund = Raund::find($id);
+        $raund->isDone = 1;
+        $raund->win_player_id = $request->input('win_player_id');
+        $raund->pointPlayer01 = $request->input('pointPlayer01');
+        $raund->pointPlayer02 = $request->input('pointPlayer02');
+
+        if($raund->save()){
+
+            return redirect('/organizator/turnirs');
+
+        }else{
+            return redirect('/error');
+        }
+    }
+    
     public function genarateRound($turnirID)
     {
         // get count player in turnir
 
         $players = SetPleyer::where("turnir_id", $turnirID);
         $countPlayers = $players->count();
-
+        
         for($i = 1; $i <= $countPlayers; $i++){
             
         }

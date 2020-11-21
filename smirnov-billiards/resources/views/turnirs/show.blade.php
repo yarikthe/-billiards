@@ -93,34 +93,58 @@
         
         </div>
 
+        <a href="/organizator/turnirs/{id}/map-table-rounds" class="btn btn-warning mb-2"><i class="fa fa-btn fa-trash fa-fw"></i> Таблиця раундів учасників</a> 
+            
         <div class="raunds">
 
-            <a href="/organizator/turnirs/{id}/map-table-rounds" class="btn btn-warning mb-2"><i class="fa fa-btn fa-trash fa-fw"></i> Таблиця раундів учасників</a> 
-            
-            <br>
+            <h5 class="mb-5">
+                Список раундів турніра
+            </h5>
+        @foreach($raund as $key => $value)
+            <div class="card-raund-item bg-white shadow p-2 rounded-lg m-2">
 
-            list of rounds
-
-            <div class="card-raund-item bg-white shadow p-2 rounded-lg">
-                <h5>
-                    Raund #1
-                </h5>
-                <div class="d-flex justify-content-between">
-
-                    <div class="players d-flex justify-content-between mr-2">
-                        <a href="#" class="p-1">Name 1</a>
-                        <br>
-                        <i class="p-1">VS</i>
-                        <br>
-                        <a href="#" class="p-1">Name 2</a>
+                    <div class="d-flex justify-content-between">
+                        <h5>
+                            {{ $value->name }}
+                        </h5>
+                        {{ $value->dateRaund }}
                     </div>
+                    <div class="d-flex justify-content-between">
+                    @foreach($player as $key => $value2)
+ 
+                        <div class="players d-flex justify-content-between mr-2">
+                            @if($value->player_01_ID == $value2->id)
+                                <a href="{{ route('player.show',$value2->id) }}" class="p-1">
+                                    {{ $value2->name }}
+                                </a>
+                            @endif
+                          
+                            @if($value->player_02_ID == $value2->id)
+                                <a href="{{ route('player.show',$value2->id) }}" class="p-1">
+                                    {{ $value2->name }}
+                                </a>
+                            @endif
+                        </div>
 
-                    <a href="#" class="btn btn-danger">Видалити</a>
-                    
-
-                </div>
+                    @endforeach
+                    </div>
+                    @if($value->isDone == 0)
+                        <a href="{{ route('turnir.showwin', $value->id) }}" class="btn btn-success">Завершити</a> 
+                    @else
+                        <i>Раунд завершено</i>
+                        <hr>
+                        @foreach($player as $key => $value2)    
+                            @if($value->win_player_id == $value2->id)
+                                <a href="{{ route('player.show',$value2->id) }}" class="p-1">
+                                <i class="mdi mdi-crown link-icon bg-success p-2 rounded-lg text-white"></i>
+                                         {{ $value2->name }}
+                                </a>
+                            @endif
+                        @endforeach
+                    @endif
+                    <a href="{{ route('turnir.delete-raund',$value->id) }}" class="btn btn-danger ">Видалити</a>
             </div>
-
+         @endforeach
         </div>
 
    </div>     
@@ -140,14 +164,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="" method="POST">
+      <form action="/organizator/turnir/raund/insert" method="POST">
+      @csrf 
         <div class="modal-body">
-            
+            <input type="text" hidden value="{{ $show->id }}" name="turnir_id">
             <div class="d-flex justify-content-between">
                 <div class="palyer-01">
+                    <div class="form-group"><label>Назва</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
                     <div class="form-group"><label>Гравець №1</label>
                    
-                    <select class="form-control" id="palyer_1">
+                    <select class="form-control" id="player_01_ID" name="player_01_ID">
                         @foreach($player as $key => $value)
                             
                             <option value="{{ $value->id}}" >{{ $value->name }}</option>
@@ -161,17 +189,22 @@
                     
                     <div class="form-group"><label>Коефіцієнт виграшу</label>
                           
-                          <input type="number" id="koefPlayer1" class="form-control" name="koefPlayer1" min="1000" max="1000000">
+                          <input type="number" id="koefWin01" class="form-control" name="koefWin01" min="1.1" max="100.0">
                     </div>
                 </div>
 
-                <div class="palyer-01">
+                <div class="palyer-02">
+                    <div class="form-group"><label>Дата раунда</label>
+
+                        <input type="date" id="dateRaund" name="dateRaund" class="form-control">
+
+                    </div>
                     <div class="form-group"><label>Гравець №2</label>
 						  	
-                    <select class="form-control" id="palyer_2">
+                    <select class="form-control" id="player_02_ID" name="player_02_ID">
                         @foreach($player as $key => $value)
                             
-                            <option value="{{ $value->id}}" >{{ $value->name }}</option>
+                            <option value="{{ $value->id }}" >{{ $value->name }}</option>
 
                         @endforeach
                     </select>
@@ -180,7 +213,7 @@
                     
                     <div class="form-group"><label>Коефіцієнт виграшу)</label>
                           
-                          <input type="number" id="koefPlayer2" class="form-control" name="koefPlayer2" min="1000" max="1000000">
+                          <input type="number" id="koefWin02" class="form-control" name="koefWin02" min="1.1" max="100.0">
                     </div>
                 </div>
 
@@ -189,7 +222,55 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-            <button type="button" class="btn btn-primary">Додати</button>
+            <button type="submit" class="btn btn-primary">Додати</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Win Modal -->
+<div class="modal fade" id="winModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Завершення раунда</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{ route('turnir.win-raund',$value->id) }}" method="POST">
+      @csrf 
+        <div class="modal-body">
+            <input type="text" hidden value="{{ $show->id }}" name="turnir_id">
+            <div class="d-flex justify-content-between">
+ 
+                    <div class="point col-md-6">
+                        <div class="form-group">
+                        <label>Очкі Переможеця</label>
+                             <input type="number" id="pointPlayer01" class="form-control" name="pointPlayer01" min="1" max="1000">
+                        <label>Очкі програвшого</label>
+                             <input type="number" id="pointPlayer01" class="form-control" name="pointPlayer01" min="1" max="1000">
+                                
+                      </div>
+                    </div>   
+                    <div class="form-group col-md-6"><label>Переможець</label>
+                        <select class="form-control" id="win_player_id" name="win_player_id">
+                            
+                            @foreach($player as $key => $value)
+                                
+                                <option value="{{ $value->id }}" >{{ $value->name }}</option>
+
+                            @endforeach
+                        </select>
+                    </div>
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+            <button type="submit" class="btn btn-success">Підтвердити</button>
         </div>
       </form>
     </div>
