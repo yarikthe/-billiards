@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Turnir;
+use App\Claim;
 
 Route::get('/', function () { return view('welcome'); });
 Route::get('/go-to-previous-page', function () { return Redirect::back(); });
@@ -57,8 +58,10 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 
         				return view('admin');
         			}else{
+						
+						$claim = Claim::where("user_id", Auth::user()->id)->first();
 
-        				return view('user');
+        				return view('user', compact("claim"));
         			}
 	        	
 	        	});//->middleware('verified');
@@ -74,9 +77,17 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 			// User 
 			Route::group(['prefix' => 'user', 'namespace' => 'User'], function() {
 			   		
-					   // Route::get('/', 'UserController@index')->name('user.index');
-					   
-					   // show player, turnir, forecast, stavka
+				Route::post('/want-be-org', 'UserController@org');
+				Route::post('/delete/{id}', 'UserController@delete')->name("user.delete");
+
+				Route::get('/turnirs', 'UserController@turnirs');
+				Route::get('/players', 'UserController@sportman');
+				Route::get('/forecast', 'UserController@forecast');
+				Route::get('/stavka', 'UserController@stavka');
+				Route::get('/profile/{id}', 'UserController@profile')->name('user.profile');
+				Route::get('/turnir/{id}', 'UserController@turnir')->name('user.turnir');
+
+				Route::post('/stavka-insert', 'UserController@newstavka');
 			});
 
 			// Admin - Oraganizator turniry
