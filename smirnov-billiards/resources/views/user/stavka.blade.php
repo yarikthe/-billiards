@@ -21,6 +21,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Дата</th>
                     <th scope="col">Сума (грн)</th>
+                    <th scope="col">Турнір [раунд, гравець]</th>
                     <th scope="col">Виграш</th>
                     </tr>
                 </thead>
@@ -43,10 +44,36 @@
                         }} грн
                     </td>
                     <td>
+                        @foreach($turnirs as $key => $value2)
+                            @if($value2->id == $value->turnir_id)
+                                {{
+                                    $value2->name
+                                }}
+                            @endif
+                        @endforeach
+                        [
+                        @foreach($raunds as $key => $value3)
+                            @if($value3->id == $value->raund_id)
+                                {{
+                                    $value3->name
+                                }}
+                            @endif
+                        @endforeach
+                        ,
+                        @foreach($players_raund as $key => $value4)
+                            @if($value4->id == $value->player_id) 
+                                {{
+                                    $value4->name
+                                }}
+                            @endif
+                        @endforeach
+                        ]
+                    </td>
+                    <td>
                         @if($value->isWin == 0)
                             <label class="text-danger">Ви програли</label>
                         @elseif($value->isWin == 1)
-                            <label class="text-success">Виграли</label>
+                            <label class="text-success">Виграли</label> {{$value->total}} грн
                         @else
                             <label class="text-info">В процесі</label>
                         @endif
@@ -74,14 +101,14 @@
         </button>
       </div>
       <form action="/user/stavka-insert" method="POST">
-        @csrf
+      <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         <div class="modal-body">
           <input type="text" value="{{ Auth::user()->id }}" hidden name="user_id">
-          <input type="number" class="form-control" name="money" min="1" max="1000000" placeholder="Сума ставки">
+          <input type="number" class="form-control" name="money" min="1" max="1000000" placeholder="Сума ставки" required>
           <div class="form-group">
             <label>Оберіть турнір</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="turnir_id">
-                
+            <select class="form-control" id="exampleFormControlSelect1" name="turnir_id" data-dependent="turnir_id" required>
+                <option value="0" disabled="true" selected="true">- Оберіть -</option>
                 @foreach($turnirs as $key => $value)
                     <option value="{{ $value->id }}">{{ $value->name }}</option>
                 @endforeach
@@ -91,23 +118,15 @@
           </div>
           <div class="form-group">
             <label>Оберіть раунд</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="raund_id">
-                
-                @foreach($raund as $key => $value)
-                    <option value="{{ $value->id }}">{{ $value->name }}</option>
-                @endforeach
-
+            <select class="form-control" id="exampleFormControlSelect1" name="raund_id" id="raund_id" data-dependent="raund_id" required>
+                <option value="0" disabled="true" selected="true">- Оберіть -</option>
             </select>
           
           </div>
           <div class="form-group">
           <label>Оберіть гравця</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="player_id">
-                
-                @foreach($player as $key => $value)
-                    <option value="{{ $value->id }}">{{ $value->name }}</option>
-                @endforeach
-
+            <select class="form-control" id="exampleFormControlSelect1" name="player_id" id="player_id" required>
+                <option value="0" disabled="true" selected="true">- Оберіть -</option>
             </select>
           
           </div>
@@ -131,11 +150,11 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="user/balance/import" method="POST">
+      <form action="user/balance/import/{{Auth::user()->id}}" method="POST">
         @csrf
         <div class="modal-body">
           <input type="text" value="{{ Auth::user()->id }}" hidden name="user_id">
-          <input type="number" class="form-control" name="balance" min="100" max="1000000">
+          <input type="number" class="form-control" name="balance" min="100" max="1000000" require>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Сховати</button>

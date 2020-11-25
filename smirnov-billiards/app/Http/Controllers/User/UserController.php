@@ -70,10 +70,12 @@ class UserController //extends Controller
         $stavka = Stavka::where('user_id', Auth::user()->id)->get();
         $turnirs = Turnir::where('isDone', 0)->where('date_start', '<', date('Y-m-d H:i:s'))->get();
         $players = SetPleyer::all();
-        $player = Player::all();
-        $raund = Raund::all();
+        $player = DB::table('players')->pluck("name","id");
+        $raund = DB::table('raunds')->pluck("name","id");
+        $raunds = Raund::all();
+        $players_raund = Player::all();
 
-        return view("user.stavka", compact("stavka", "turnirs", "players", "player", "raund"));
+        return view("user.stavka", compact("stavka", "turnirs", "players", "player", "raund", "raunds", "players_raund"));
     }
 
     public function newstavka(Request $request){
@@ -87,6 +89,7 @@ class UserController //extends Controller
         $stavka->money = $request->input("money");
         $stavka->dateStavka = date('Y-m-d');
         $stavka->isWin = 2;
+        $stavka->total = 0;
 
         if($stavka->save()){
 
@@ -108,5 +111,34 @@ class UserController //extends Controller
         $raund = Raund::where("turnir_id", $id)->get();
 
         return view("user.turnir", compact("show", "players", "player", "raund"));
+    }
+
+    public function getRaund($id)
+    {
+
+        $raund = Raund::where("turnir_id",$id)->pluck('name','id');
+
+        return json_encode($raund);
+    }
+
+    public function getPlayer($id)
+    {
+        $playerRaund = Raund::where("id",$id)->get();
+        $player = Player::where("id", $playerRaund->player_01_ID)->pluck('name','id');
+
+        return json_encode($player);
+    }
+
+
+    public function importBalance($id, Request $request){
+
+        $user = User::find($id);
+
+        $user->balance = $request->input("balance");
+
+        if($user->save()){
+
+            return redirect("user/stavka");
+        }
     }
 }

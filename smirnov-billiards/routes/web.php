@@ -88,6 +88,10 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 				Route::get('/turnir/{id}', 'UserController@turnir')->name('user.turnir');
 
 				Route::post('/stavka-insert', 'UserController@newstavka');
+				Route::post('user/balance/import/{id}', 'UserController@importBalance');
+
+				Route::get('/raund/get/{id}', 'UserController@getRaund');
+				Route::get('/player/get/{id}', 'UserController@getPlayer');
 			});
 
 			// Admin - Oraganizator turniry
@@ -124,4 +128,12 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 				Route::post('/turnir/raund/win/accept/{id}', 'TurnirController@winRaund')->name('turnir.win-raund');
 			});
         
+});
+
+Route::get('csrf-ajax', function()
+{
+    if (Session::token() != Request::header('x-csrf-token'))
+    {
+        throw new Illuminate\Session\TokenMismatchException;
+    }
 });

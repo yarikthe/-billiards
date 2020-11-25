@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="/assets/css/demo_1/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="/asssets/images/favicon.ico" />
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+    <script src="/js/custom.js" defer></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
   </head>
   <body class="header-fixed">
     <!-- partial:partials/_header.html -->
