@@ -75,6 +75,16 @@ class TurnirController //extends Controller
 
         $close = Turnir::find($id);
         $close->isDone = 1;
+
+        $set = SetPleyer::where("turnir_id", $id)->get();
+        
+        foreach($set as $i)
+        {
+            $player = Player::where("id", $i->player_id)->orderBy("countPointStart", "DESC")->first();
+            $close->win_player_id = $player->id;
+            $close->pointWin = $player->countPointStart;
+        }
+       
         
         if($close->save()){
 

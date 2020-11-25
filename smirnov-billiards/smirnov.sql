@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Nov 12, 2020 at 12:02 AM
+-- Generation Time: Nov 25, 2020 at 04:44 PM
 -- Server version: 5.7.30
 -- PHP Version: 7.4.9
 
@@ -28,6 +28,13 @@ CREATE TABLE `claim_organizators` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `claim_organizators`
+--
+
+INSERT INTO `claim_organizators` (`id`, `user_id`, `dateClaim`, `company`, `created_at`, `updated_at`) VALUES
+(3, 1, '2020-11-24', 'My Best Company', '2020-11-24 14:05:25', '2020-11-24 14:05:25');
 
 -- --------------------------------------------------------
 
@@ -135,6 +142,48 @@ CREATE TABLE `players` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `players`
+--
+
+INSERT INTO `players` (`id`, `name`, `photo`, `sportTitul`, `city`, `dateBorn`, `countPointStart`, `created_at`, `updated_at`) VALUES
+(11, 'Roni', '1605636258.png', 'Master', 'Житомир', '2020-11-03', '214', '2020-11-17 16:04:18', '2020-11-20 22:25:32'),
+(12, 'Ann', '1605640502.png', 'Master', 'Житомир', '2020-11-29', '344', '2020-11-17 17:15:02', '2020-11-20 22:25:43'),
+(13, 'BOB', '1605640818.png', '123', 'qew', '2020-11-20', '232', '2020-11-17 17:20:18', '2020-11-20 22:25:20'),
+(14, 'Gery', '1605918305.png', 'Master', 'Житомир', '2020-11-25', '324', '2020-11-20 22:25:05', '2020-11-20 22:25:05'),
+(15, 'Steve', '1605918375.png', 'Master', 'Житомир', '2020-11-19', '424', '2020-11-20 22:26:15', '2020-11-20 22:26:15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `p_r`
+--
+
+CREATE TABLE `p_r` (
+  `id` bigint(11) NOT NULL,
+  `name` text NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `raund_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `p_r`
+--
+
+INSERT INTO `p_r` (`id`, `name`, `user_id`, `raund_id`, `created_at`, `updated_at`) VALUES
+(4, '[\"Ann\"]', 12, 9, '2020-11-25 12:15:40', '2020-11-25 12:15:40'),
+(5, '[\"BOB\"]', 13, 9, '2020-11-25 12:15:40', '2020-11-25 12:15:40'),
+(12, '[\"Ann\"]', 12, 13, '2020-11-25 13:41:39', '2020-11-25 13:41:39'),
+(13, '[\"BOB\"]', 13, 13, '2020-11-25 13:41:39', '2020-11-25 13:41:39'),
+(14, '[\"Roni\"]', 11, 14, '2020-11-25 13:42:23', '2020-11-25 13:42:23'),
+(15, '[\"Gery\"]', 14, 14, '2020-11-25 13:42:23', '2020-11-25 13:42:23'),
+(16, '[\"BOB\"]', 13, 15, '2020-11-25 13:42:57', '2020-11-25 13:42:57'),
+(17, '[\"Steve\"]', 15, 15, '2020-11-25 13:42:57', '2020-11-25 13:42:57'),
+(18, '[\"Roni\"]', 11, 16, '2020-11-25 13:48:55', '2020-11-25 13:48:55'),
+(19, '[\"Steve\"]', 15, 16, '2020-11-25 13:48:55', '2020-11-25 13:48:55');
+
 -- --------------------------------------------------------
 
 --
@@ -158,6 +207,16 @@ CREATE TABLE `raunds` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `raunds`
+--
+
+INSERT INTO `raunds` (`id`, `name`, `turnir_id`, `player_01_ID`, `player_02_ID`, `dateRaund`, `koefWin01`, `koefWin02`, `win_player_id`, `pointPlayer01`, `pointPlayer02`, `isDone`, `created_at`, `updated_at`) VALUES
+(13, 'R1', 19, 12, 13, '2020-11-25', '1.00', '2.00', 13, 3, 0, 1, '2020-11-25 13:41:39', '2020-11-25 13:42:39'),
+(14, 'R1', 19, 11, 14, '2020-11-26', '2.00', '3.00', 11, 677, 0, 1, '2020-11-25 13:42:23', '2020-11-25 13:43:57'),
+(15, 'R2', 19, 13, 15, '2020-11-27', '2.00', '3.00', 15, 354, 0, 1, '2020-11-25 13:42:57', '2020-11-25 13:48:06'),
+(16, 'R3', 19, 11, 15, '2020-12-01', '4.00', '5.00', 15, 23, 0, 1, '2020-11-25 13:48:55', '2020-11-25 13:50:51');
+
 -- --------------------------------------------------------
 
 --
@@ -171,6 +230,27 @@ CREATE TABLE `set_pleyers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `set_pleyers`
+--
+
+INSERT INTO `set_pleyers` (`id`, `turnir_id`, `player_id`, `created_at`, `updated_at`) VALUES
+(6, 18, 12, '2020-11-18 11:40:27', '2020-11-18 11:40:27'),
+(8, 19, 12, '2020-11-18 11:44:37', '2020-11-18 11:44:37'),
+(11, 19, 13, '2020-11-20 14:34:43', '2020-11-20 14:34:43'),
+(12, 21, 11, '2020-11-20 22:32:35', '2020-11-20 22:32:35'),
+(13, 21, 12, '2020-11-20 22:32:35', '2020-11-20 22:32:35'),
+(14, 21, 14, '2020-11-20 22:32:35', '2020-11-20 22:32:35'),
+(15, 21, 15, '2020-11-21 11:29:37', '2020-11-21 11:29:37'),
+(16, 22, 12, '2020-11-24 15:48:30', '2020-11-24 15:48:30'),
+(17, 22, 15, '2020-11-24 15:48:30', '2020-11-24 15:48:30'),
+(18, 19, 11, '2020-11-25 13:01:29', '2020-11-25 13:01:29'),
+(19, 19, 14, '2020-11-25 13:01:29', '2020-11-25 13:01:29'),
+(20, 19, 15, '2020-11-25 13:01:29', '2020-11-25 13:01:29'),
+(28, 25, 13, '2020-11-25 14:43:34', '2020-11-25 14:43:34'),
+(29, 25, 14, '2020-11-25 14:43:34', '2020-11-25 14:43:34'),
+(30, 25, 15, '2020-11-25 14:43:34', '2020-11-25 14:43:34');
 
 -- --------------------------------------------------------
 
@@ -204,9 +284,19 @@ CREATE TABLE `stavkas` (
   `money` decimal(12,2) NOT NULL,
   `dateStavka` date NOT NULL,
   `isWin` tinyint(1) NOT NULL DEFAULT '0',
+  `total` decimal(10,0) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `stavkas`
+--
+
+INSERT INTO `stavkas` (`id`, `user_id`, `turnir_id`, `raund_id`, `player_id`, `money`, `dateStavka`, `isWin`, `total`, `created_at`, `updated_at`) VALUES
+(6, 1, 19, 11, 11, '1203.00', '2020-11-25', 1, '14436', '2020-11-25 13:05:37', '2020-11-25 13:11:30'),
+(7, 1, 19, 12, 13, '436.00', '2020-11-25', 0, '-436', '2020-11-25 13:19:02', '2020-11-25 13:19:02'),
+(8, 1, 19, 12, 11, '500.00', '2020-11-25', 1, '1500', '2020-11-25 13:20:21', '2020-11-25 13:20:37');
 
 -- --------------------------------------------------------
 
@@ -230,6 +320,17 @@ CREATE TABLE `turnirs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `turnirs`
+--
+
+INSERT INTO `turnirs` (`id`, `name`, `desc`, `prizMoney`, `place`, `date_start`, `date_end`, `win_player_id`, `pointWin`, `isPiblic`, `isDone`, `organizator_id`, `created_at`, `updated_at`) VALUES
+(18, 'Winter', 'winter cup', '2132.00', 'Житомир', '2020-12-24', '2021-01-07', 0, 0, 0, 0, 2, '2020-11-18 11:40:27', '2020-11-24 15:48:04'),
+(19, 'Now Edit', 'now cup', '21323.00', 'Житомир', '2020-11-16', '2020-11-20', 15, 424, 1, 1, 2, '2020-11-18 11:44:37', '2020-11-25 13:51:56'),
+(21, 'ZT Billiards', 'Житомирськи йтурнір по більярду', '3451.00', 'Житомир', '2020-11-28', '2020-12-06', 0, 0, 0, 0, 2, '2020-11-20 22:32:35', '2020-11-20 22:34:03'),
+(22, 'now turnit', 'jkv n dfj dfo if ldkf,', '3244.00', 'Житомир', '2020-11-23', '2020-11-28', 0, 0, 1, 1, 2, '2020-11-24 15:48:30', '2020-11-25 14:10:26'),
+(25, 'wqerqr', 'qwr', '1234.00', 'wqr', '2020-11-23', '2020-12-03', 15, 424, 0, 1, 2, '2020-11-25 14:43:34', '2020-11-25 14:43:40');
 
 -- --------------------------------------------------------
 
@@ -257,7 +358,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `avatar`, `phone`, `balance`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Смірнов', 'smirnov@mail.com', '$2y$10$pbVezxHm2/wIZtykh9fj0uFCEppD8xaPEhCkXiS9oS9TlentjMj66', 'user', 'logo.png', '', '0.00', NULL, NULL, '2020-11-11 21:06:13', '2020-11-11 21:06:13'),
+(1, 'Смірнов', 'smirnov@mail.com', '$2y$10$pbVezxHm2/wIZtykh9fj0uFCEppD8xaPEhCkXiS9oS9TlentjMj66', 'user', 'logo.png', '', '15000.00', NULL, NULL, '2020-11-11 21:06:13', '2020-11-25 13:20:37'),
 (2, 'ТОВ \"Шарик\"', 'org@mail.com', '$2y$10$gkSsb/Du2XPuH8/ELej7vOouk5qXDQLZQEHXs4oB3rsBrk5zrEgO6', 'org', 'logo.png', '', '0.00', NULL, NULL, '2020-11-11 21:07:46', '2020-11-11 21:07:46'),
 (3, 'BS7', 'admin@mail.com', '$2y$10$32khsZuAV5P3ChIKhfpAwOHNggcUwIuYoPYin4lEnytvkWyi9qOrq', 'admin', 'logo.png', '', '0.00', NULL, NULL, '2020-11-11 21:08:56', '2020-11-11 21:08:56');
 
@@ -308,6 +409,12 @@ ALTER TABLE `password_resets`
 -- Indexes for table `players`
 --
 ALTER TABLE `players`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `p_r`
+--
+ALTER TABLE `p_r`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -363,7 +470,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `claim_organizators`
 --
 ALTER TABLE `claim_organizators`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -393,19 +500,25 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT for table `players`
 --
 ALTER TABLE `players`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `p_r`
+--
+ALTER TABLE `p_r`
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `raunds`
 --
 ALTER TABLE `raunds`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `set_pleyers`
 --
 ALTER TABLE `set_pleyers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `statistics`
@@ -417,13 +530,13 @@ ALTER TABLE `statistics`
 -- AUTO_INCREMENT for table `stavkas`
 --
 ALTER TABLE `stavkas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `turnirs`
 --
 ALTER TABLE `turnirs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `users`

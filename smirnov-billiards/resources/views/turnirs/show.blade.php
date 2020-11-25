@@ -79,6 +79,7 @@
                                 
                                 @if($value_id->player_id == $value->id)
                                     <a href="{{ route('player.show',$value->id) }}"> {{ $value->name }}</a>
+                                    (Очкі: {{ $value->countPointStart }})
                                     @if($value->id == $show->win_player_id)
                                         <i class="mdi mdi-crown link-icon bg-success p-2 rounded-lg text-white"></i> Переможець
                                         (Очкі: {{ $show->pointWin }})
@@ -105,7 +106,7 @@
 
                     <div class="d-flex justify-content-between">
                         <h5>
-                            {{ $value->name }}
+                          Раунд №{{ $value->name }}
                         </h5>
                         {{ $value->dateRaund }}
                     </div>
@@ -170,7 +171,7 @@
             <input type="text" hidden value="{{ $show->id }}" name="turnir_id">
             <div class="d-flex justify-content-between">
                 <div class="palyer-01">
-                    <div class="form-group"><label>Назва</label>
+                    <div class="form-group"><label>Номер турніра (Назва з номером)</label>
                         <input type="text" name="name" class="form-control">
                     </div>
                     <div class="form-group"><label>Гравець №1</label>
