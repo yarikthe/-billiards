@@ -11,6 +11,7 @@ use App\SetPleyer;
 use App\Raund;
 use App\Claim;
 use App\Stavka;
+use App\PR;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -67,10 +68,10 @@ class UserController //extends Controller
 
     public function stavka(){
 
-        $stavka = Stavka::where('user_id', Auth::user()->id)->get();
+        $stavka = Stavka::where('user_id', Auth::user()->id)->orderBy('created_at','DESC')->get();
         $turnirs = Turnir::where('isDone', 0)->where('date_start', '<', date('Y-m-d H:i:s'))->get();
         $players = SetPleyer::all();
-        $player = DB::table('players')->pluck("name","id");
+        $player = DB::table('p_r')->pluck("name","user_id");
         $raund = DB::table('raunds')->pluck("name","id");
         $raunds = Raund::all();
         $players_raund = Player::all();
@@ -92,6 +93,21 @@ class UserController //extends Controller
         $stavka->total = 0;
 
         if($stavka->save()){
+
+            $user = User::find(Auth::user()->id);
+            $user->balance = $user->balance - $request->input("money");
+            $user->save();
+
+            return redirect("/user/stavka");
+        }
+
+    }
+
+    public function deleteStavka($id)
+    {
+        $s = Stavka::find($id);
+
+        if($s->delete()){
 
             return redirect("/user/stavka");
         }
@@ -123,8 +139,7 @@ class UserController //extends Controller
 
     public function getPlayer($id)
     {
-        // $playerRaund = Raund::where("id",$id)->get();
-        $player = Player::where("id", $id)->pluck('name','id');
+        $player = PR::where("raund_id",$id)->pluck('name','user_id');
 
         return json_encode($player);
     }

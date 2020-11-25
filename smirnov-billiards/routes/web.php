@@ -89,6 +89,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 
 				Route::post('/stavka-insert', 'UserController@newstavka');
 				Route::post('user/balance/import/{id}', 'UserController@importBalance');
+				Route::get('/stavka/delete/{id}', 'UserController@deleteStavka')->name('stavka.delete');
 
 				Route::get('/raund/get/{id}', 'UserController@getRaund');
 				Route::get('/player/get/{id}', 'UserController@getPlayer');

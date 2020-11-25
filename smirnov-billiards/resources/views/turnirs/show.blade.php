@@ -176,10 +176,15 @@
                     <div class="form-group"><label>Гравець №1</label>
                    
                     <select class="form-control" id="player_01_ID" name="player_01_ID">
-                        @foreach($player as $key => $value)
-                            
-                            <option value="{{ $value->id}}" >{{ $value->name }}</option>
-
+                            <option value="0" selected="true" disable="true" >Оберіть</option>
+                            @foreach($players as $key => $value_id)
+                            @foreach($player as $key => $value)
+                                
+                                @if($value_id->player_id == $value->id)
+                                <option value="{{ $value->id}}" >{{ $value->name }}</option>
+                                  
+                                @endif
+                            @endforeach
                         @endforeach
                     </select>
 
@@ -189,7 +194,7 @@
                     
                     <div class="form-group"><label>Коефіцієнт виграшу</label>
                           
-                          <input type="number" id="koefWin01" class="form-control" name="koefWin01" min="1.1" max="100.0">
+                          <input type="number" id="koefWin01" class="form-control" name="koefWin01" min="1.0" step="0.01" max="100.0">
                     </div>
                 </div>
 
@@ -202,10 +207,15 @@
                     <div class="form-group"><label>Гравець №2</label>
 						  	
                     <select class="form-control" id="player_02_ID" name="player_02_ID">
-                        @foreach($player as $key => $value)
-                            
-                            <option value="{{ $value->id }}" >{{ $value->name }}</option>
-
+                    <option value="0" selected="true" disable="true" >Оберіть</option>
+                            @foreach($players as $key => $value_id)
+                            @foreach($player as $key => $value)
+                                
+                                @if($value_id->player_id == $value->id)
+                                <option value="{{ $value->id}}" >{{ $value->name }}</option>
+                                  
+                                @endif
+                            @endforeach
                         @endforeach
                     </select>
                             
@@ -213,7 +223,7 @@
                     
                     <div class="form-group"><label>Коефіцієнт виграшу)</label>
                           
-                          <input type="number" id="koefWin02" class="form-control" name="koefWin02" min="1.1" max="100.0">
+                          <input type="number" id="koefWin02" class="form-control" name="koefWin02" min="1.0" step="0.01" max="100.0">
                     </div>
                 </div>
 
@@ -250,7 +260,7 @@
                         <label>Очкі Переможеця</label>
                              <input type="number" id="pointPlayer01" class="form-control" name="pointPlayer01" min="1" max="1000">
                         <label>Очкі програвшого</label>
-                             <input type="number" id="pointPlayer01" class="form-control" name="pointPlayer01" min="1" max="1000">
+                             <input type="number" id="pointPlayer02" class="form-control" name="pointPlayer02" min="1" max="1000">
                                 
                       </div>
                     </div>   

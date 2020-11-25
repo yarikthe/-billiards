@@ -18,6 +18,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                    <th scope="col"></th>
                     <th scope="col">#</th>
                     <th scope="col">Дата</th>
                     <th scope="col">Сума (грн)</th>
@@ -30,6 +31,9 @@
                 @foreach($stavka as $key => $value)
                 
                 <tr>
+                    <td>
+                       <a href="{{ route('stavka.delete',$value->id) }}" class="text-danger">Видалити</a>
+                    </td>
                     <th scope="row">{{ $key + 1 }}</th>
                     <td>
                         
@@ -54,9 +58,12 @@
                         [
                         @foreach($raunds as $key => $value3)
                             @if($value3->id == $value->raund_id)
+                          
                                 {{
                                     $value3->name
-                                }}
+                                }}                    
+                            <!-- <label class="text-info">Раунд видалено</label> -->
+                       
                             @endif
                         @endforeach
                         ,
@@ -71,13 +78,14 @@
                     </td>
                     <td>
                         @if($value->isWin == 0)
-                            <label class="text-danger">Ви програли</label>
+                        <label class="text-danger"> {{$value->total}} грн</label> <label class="text-danger p-1 rounded">Ви програли</label> 
                         @elseif($value->isWin == 1)
-                            <label class="text-success">Виграли</label> {{$value->total}} грн
+                        <label class="text-success">+{{$value->total}} грн</label>  <label class="text-success p-1 rounded">Виграли</label> 
                         @else
                             <label class="text-info">В процесі</label>
                         @endif
                     </td>
+                    
                 </tr>
 
               @endforeach

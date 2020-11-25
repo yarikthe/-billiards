@@ -46,18 +46,6 @@
                     <a class="nav-link" href="/about-bilyard">Про біляьрд</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/about-us">Про "Більярд - Смірнов"</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/turnirs">Турніри</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/players">Гравці</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/news">Новини</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="/contact">Контакти</a>
                   </li>
                 </ul>

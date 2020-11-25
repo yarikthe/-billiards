@@ -8,6 +8,9 @@ use App\Turnir;
 use App\Player;
 use App\SetPleyer;
 use App\Raund;
+use App\PR;
+use App\User;
+use App\Stavka;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -224,7 +227,27 @@ class TurnirController //extends Controller
         $raund->pointPlayer02 = 0;
         $raund->isDone = 0;
 
+        $p1 = Player::where("id", $request->input('player_01_ID'))->pluck("name");
+        $p2 = Player::where("id", $request->input('player_02_ID'))->pluck("name");
+
         if($raund->save()){
+
+            $rid = $raund->id;
+
+                $pr = new PR();
+                $pr->name = $p1;
+                $pr->user_id = $request->input('player_01_ID');
+                $pr->raund_id = $rid;
+                $pr->save();
+
+                $pr2 = new PR();
+                $pr2->name = $p2;
+                $pr2->user_id = $request->input('player_02_ID');
+                $pr2->raund_id = $rid;
+                $pr2->save();
+
+            
+            
             return redirect('/organizator/turnirs');
         }
 
@@ -236,6 +259,12 @@ class TurnirController //extends Controller
 
         if($raund->delete()){
 
+            $p = PR::where('raund_id', $id)->get();
+
+            foreach($p as $i){
+                $i->delete();
+            }
+  
             return redirect('/organizator/turnirs');
 
         }else{
@@ -260,6 +289,69 @@ class TurnirController //extends Controller
         $raund->pointPlayer02 = $request->input('pointPlayer02');
 
         if($raund->save()){
+
+            $koef1 = $raund->koefWin01;
+            $koef2 = $raund->koefWin02;
+    
+            $pl1 = $raund->player_01_ID;
+            $pl2 = $raund->player_02_ID;
+
+            $winer = $request->input('win_player_id');
+
+            if($winer == $pl1){
+
+                $stavka = Stavka::where("raund_id",$id)->where("player_id", $winer)->get();
+
+                foreach($stavka as $item)
+                {
+                    $item->isWin = 1;
+                    $item->total = floatval($item->money) * floatval($koef1);
+                    $item->save();
+    
+                    $usr = User::find($item->user_id);
+                    $usr->balance = $usr->balance + $item->total;
+                    $usr->save();
+                }
+
+                $players = Player::find($request->input('win_player_id'));
+                $players->countPointStart = $players->countPointStart + $request->input('pointPlayer01');
+                $players->save();
+
+            }elseif($winer == $pl2){
+
+                $stavka2 = Stavka::where("raund_id",$id)->where("player_id", $winer)->get();
+                
+                foreach($stavka2 as $item)
+                {
+                    $item->isWin = 1;
+                    $item->total = floatval($item->money) * floatval($koef2);
+                    $item->save();
+    
+                    $usr = User::find($item->user_id);
+                    $usr->balance = $usr->balance + $item->total;
+                    $usr->save();
+                }
+
+                $players2 = Player::find($request->input('win_player_id'));
+                $players2->countPointStart = $players2->countPointStart + $request->input('pointPlayer02');
+                $players2->save();
+
+            }else{
+                $stavka3 = Stavka::where("raund_id",$id)->where("player_id", "!=", $winer)->get();
+                
+                foreach($stavka3 as $item)
+                {
+                    $item->isWin = 0;
+                    $item->total = floatval($item->money) - (floatval($item->money)  * 2);
+                    $item->save();
+    
+                    $usr = User::find($item->user_id);
+                    $usr->balance = $usr->balance - $item->total;
+                    $usr->save();
+                }
+            }
+
+           
 
             return redirect('/organizator/turnirs');
 
