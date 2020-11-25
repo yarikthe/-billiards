@@ -27,6 +27,9 @@ $('select[name="turnir_id"]').on('change', function(){
 
 });
 
+});
+
+$(document).ready(function() {
 $('select[name="raund_id"]').on('change', function(){
     var countryId2 = $(this).val();
     if(countryId2) {
@@ -52,5 +55,4 @@ $('select[name="raund_id"]').on('change', function(){
     }
 
 });
-
 });

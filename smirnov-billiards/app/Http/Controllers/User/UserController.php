@@ -123,8 +123,8 @@ class UserController //extends Controller
 
     public function getPlayer($id)
     {
-        $playerRaund = Raund::where("id",$id)->get();
-        $player = Player::where("id", $playerRaund->player_01_ID)->pluck('name','id');
+        // $playerRaund = Raund::where("id",$id)->get();
+        $player = Player::where("id", $id)->pluck('name','id');
 
         return json_encode($player);
     }
