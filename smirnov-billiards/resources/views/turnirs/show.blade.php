@@ -94,7 +94,7 @@
         
         </div>
 
-        <a href="/organizator/turnirs/{id}/map-table-rounds" class="btn btn-warning mb-2"><i class="fa fa-btn fa-trash fa-fw"></i> Таблиця раундів учасників</a> 
+        <a href="{{ route('turnir.table',$show->id) }}" class="btn btn-warning mb-2"><i class="fa fa-btn fa-trash fa-fw"></i> Таблиця раундів учасників</a> 
             
         <div class="raunds">
 
@@ -106,7 +106,7 @@
 
                     <div class="d-flex justify-content-between">
                         <h5>
-                          Раунд №{{ $value->name }}
+                          Етап №{{ $value->name }}
                         </h5>
                         {{ $value->dateRaund }}
                     </div>

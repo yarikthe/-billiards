@@ -66,276 +66,123 @@
               </div>
             </nav>
             <!--/.Navbar -->
-            <!-- Jumbotron -->
+            <!-- Jumbotron Jumbotron -->
             <div class="p-5 mt-5 text-center bg-light bg-header">
                 
                 <div class="bg-inner">
                     <h1 class="mb-3 mt-5">Більярд - Смірнов</h1>
-                    <h4 class="mb-3">Сервіс виграшів №1 в Україні по Більярдному спорту!</h4>
-                    <a class="btn btn-warning btn-lg" href="/register" role="button">Виграти!</a>
                 </div>
                
             </div>
-            <!-- Jumbotron -->
+          
         </header>
 
-        <div class="container-fluid text-left p-3">
+        <div class="container-fluid text-left p-3 pt-5">
 
             <h2>
-                Some information
+              Турніри
             </h2>
-            <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+              <hr>
             <div class="row">
-                
-                <div class="col-md-8 p-2">
-                    <div class="card m-1 shadow">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
-                    </div>
 
-                    <div class="card m-1 shadow">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
-                    </div>
+                <div class="now col-md-6">
+                @foreach($turnir as $key => $value)
+                <div class="card-turnir shadow p-2 bg-light rounded-lg text-dark m-2">
+                    <div class="header d-flex justify-content-between mb-2">
+                        
+                        <a href="{{ route('t.show',$value->id) }}">
+                            <h3>{{ $value->name }}</h3>
+                        </a>
 
-                    <div class="card m-1 shadow">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
+                        <div class="date p-2">
+                            <i>{{ $value->date_start }} - {{ $value->date_end }}</i> 
+                        </div>
+                        
                     </div>
+                    <div class="body d-flex justify-content-between mb-2">
+                    
+                        <b>{{ $value->place }}</b>
 
+                        
+                    </div>
+                    
                 </div>
-                <div class="col-md-4">
-                    <img src="https://www.llb.su/files/images/S2.preview.jpg" class="img-fluid rounded shadow fixed">
-                    <p class="mt-3">
-                        <i>Кращі гравці місяця! Вереснь 2020 рік.</i>
-                    </p>
+            @endforeach
+          <hr>
+              <h2>
+                Минулі турніри (архівні)
+              </h2>
+              <hr>
+              @foreach($turnirold as $key => $value)
+                <div class="card-turnir shadow p-2 bg-light rounded-lg text-dark m-2">
+                    <div class="header d-flex justify-content-between mb-2">
+                        
+                        <a href="{{ route('t.show',$value->id) }}">
+                            <h3>{{ $value->name }}</h3>
+                        </a>
+
+                        <div class="date p-2">
+                            <i>{{ $value->date_start }} - {{ $value->date_end }}</i> 
+                        </div>
+                        
+                    </div>
+                    <div class="body d-flex justify-content-between mb-2">
+                    
+                        <b>{{ $value->place }}</b>
+
+                        
+                    </div>
+                    
+                </div>
+            @endforeach
                 </div>
 
-            </div> 
+                <div class="col-md-6">
+                  <h2>
+                    Гравці
+                  </h2>
+                  <hr>
+                  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Імя</th>
+      <th scope="col">Місто</th>
+      <th scope="col">Звання</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
 
-            <div class="gallary">
-                <h2>
-                    Галерея наших фото з турнірів
-                </h2>
-                <hr>
-                <div class="row">
-                    <div class="col-md-4 p-1">
-                        <img src="https://images.unsplash.com/photo-1523895665936-7bfe172b757d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="img-fluid shadow rounded">
-                    </div>
-                    <div class="col-md-4 p-1">
-                        <img src="https://images.unsplash.com/photo-1523895665936-7bfe172b757d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="img-fluid shadow rounded">
-                    </div>
-                    <div class="col-md-4 p-1">
-                        <img src="https://images.unsplash.com/photo-1523895665936-7bfe172b757d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="img-fluid shadow rounded">
-                    </div>
-                    <div class="col-md-4 p-1">
-                        <img src="https://images.unsplash.com/photo-1523895665936-7bfe172b757d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="img-fluid shadow rounded">
-                    </div>
-                    <div class="col-md-4 p-1">
-                        <img src="https://images.unsplash.com/photo-1523895665936-7bfe172b757d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="img-fluid shadow rounded">
-                    </div>
-                    <div class="col-md-4 p-1">
-                        <img src="https://images.unsplash.com/photo-1523895665936-7bfe172b757d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="img-fluid shadow rounded">
-                    </div>
-                    <div class="col-md-4 p-1">
-                        <img src="https://images.unsplash.com/photo-1523895665936-7bfe172b757d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="img-fluid shadow rounded">
-                    </div>
-                    <div class="col-md-4 p-1">
-                        <img src="https://images.unsplash.com/photo-1523895665936-7bfe172b757d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="g-img img-fluid shadow rounded">
-                    </div>
-                    <div class="col-md-4 p-1">
-                        <img src="https://images.unsplash.com/photo-1523895665936-7bfe172b757d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="img-fluid shadow rounded">
-                    </div>
-                </div>
-              
-            </div> 
+                     @foreach($players as $key => $value)                      
+                        <tr>
+                            <td>{{ $key + 1 }}</td>
+                            <td>
+                              <a href="{{ route('p.show',$value->id) }}">{{ $value->name }} <i class="mdi mdi-share link-icon"></i></a>
+                            </td>
+                            
+                            <td> {{ $value->city }}</td>
+                            <td> 
+                               {{ $value->sportTitul }}
+                            </td> 
 
-            <div class="text mt-2">
-                
-                <h2>
-                    Text
-                </h2>
 
-                <hr>
+                        </tr>
+                    @endforeach
+                    
+</table>
 
-                <div class="text-content">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                    <div class="row m-auto p-3">
-                        <div class="card p-1 shadow col-md-5 m-auto ">
-                          <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                          </div>
-                        </div>
-                        <div class="card p-1 shadow col-md-5 m-auto ">
-                          <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                          </div>
-                        </div>
-                        <div class="card p-1 shadow col-md-3 m-auto ">
-                          <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                          </div>
-                        </div>
-                        <div class="card p-1 shadow col-md-3 m-auto ">
-                          <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                          </div>
-                        </div>
-                        <div class="card p-1 shadow col-md-3 m-auto ">
-                          <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                          </div>
-                        </div>
-                        <div class="card p-1 shadow col-md-5 m-auto ">
-                          <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                          </div>
-                        </div>
-                        <div class="card p-1 shadow col-md-5 m-auto ">
-                          <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                          </div>
-                        </div>
-                    </div>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
                 </div>
 
             </div>
+           
+           
         </div>
-
-       <!-- Footer -->
-        <footer class="page-footer font-small teal pt-4 bg-light">
-
-          <!-- Footer Text -->
-          <div class="container-fluid text-center text-md-left">
-
-            <!-- Grid row -->
-            <div class="row">
-
-              <!-- Grid column -->
-              <div class="col-md-6 mt-md-0 mt-3">
-
-                <!-- Content -->
-                <h5 class="text-uppercase font-weight-bold">Про "Більярд - Смірнов"</h5>
-                <p>
-                    Написато опис веб-сервісу.
-                </p>
-
-              </div>
-              <!-- Grid column -->
-
-              <hr class="clearfix w-100 d-md-none pb-3">
-
-              <!-- Grid column -->
-              <div class="col-md-6 mb-md-0 mb-3">
-
-                <!-- Content -->
-                <h5 class="text-uppercase font-weight-bold">Партнери</h5>
-                <p>
-                    Вставити логотипи якіхось брендів.
-                </p>
-
-              </div>
-              <!-- Grid column -->
-
-            </div>
-            <!-- Grid row -->
-
-          </div>
           <!-- Footer Text -->
 
           <!-- Copyright -->
           <div class="footer-copyright text-center py-3 bg-secondary text-white">© 2020 Copyright:
-            <a href="#" class="text-warning"> Більярд - Смірнов </a> | ІПЗм-19-1 |
-            Developed by<a href="yariklukyanchuk.com.ua" class="text-warning"> Lukyanchuk Media</a>
+            <a href="#" class="text-warning"> Більярд - Смірнов </a> | ІПЗм-19-1 
           </div>
           <!-- Copyright -->
 

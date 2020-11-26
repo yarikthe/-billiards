@@ -396,4 +396,16 @@ class TurnirController //extends Controller
     {
         // set koef on 2 players in on round
     }
+
+    public function table($id)
+    {
+        
+        $turnir = Turnir::find($id);
+        $raund = Raund::where("turnir_id", $id)->get();
+        $player = Player::all();
+        $setPlayer = SetPleyer::where("turnir_id", $id)->get();
+        $user = User::where("id", $turnir->organizator_id)->first();
+
+        return view("turnirs.table", compact("turnir", "raund", "player", "setPlayer", "user"));
+    }
 }

@@ -14,9 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Turnir;
+use App\Player;
 use App\Claim;
 
-Route::get('/', function () { return view('welcome'); });
+Route::get('/', function () { 
+
+	$players = Player::all();
+	$turnir = Turnir::where("isDone", 0)->get();
+
+	$turnirold = Turnir::where("isDone", 1)->get();
+
+	return view('welcome', compact("players", "turnir", "turnirold")); 
+});
+Route::get('/turnir/show/{id}', 'HomeController@showTurnir')->name('t.show');
+Route::get('/player/show/{id}', 'HomeController@showPlayer')->name('p.show');
+
 Route::get('/go-to-previous-page', function () { return Redirect::back(); });
 Route::get('/turnirs', function () { return view('turnirs.index'); });
 Route::get('/about', function () { return view('public.about'); });
@@ -127,6 +139,8 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 				Route::get('/turnir/raund/delete/{id}', 'TurnirController@deleteRaund')->name('turnir.delete-raund');
 				Route::get('/turnir/raund/win/{id}', 'TurnirController@showwin')->name('turnir.showwin');
 				Route::post('/turnir/raund/win/accept/{id}', 'TurnirController@winRaund')->name('turnir.win-raund');
+
+				Route::get('/turnir/table/{id}', 'TurnirController@table')->name('turnir.table');
 			});
         
 });

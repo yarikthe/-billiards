@@ -11,10 +11,10 @@
     <!-- vendor css for this page -->
     <!-- End vendor css for this page -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="assets/css/shared/style.css" />
+    <link rel="stylesheet" href="/assets/css/shared/style.css" />
     <!-- endinject -->
     <!-- Layout style -->
-    <link rel="stylesheet" href="assets/css/demo_1/style.css">
+    <link rel="stylesheet" href="/assets/css/demo_1/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="https://img.icons8.com/cotton/452/billiard-ball.png" />
   </head>
@@ -43,7 +43,7 @@
     <!-- Vendor Js For This Page Ends-->
     <!-- Vendor Js For This Page Ends-->
     <!-- build:js -->
-    <script src="./assets/js/template.js"></script>
+    <script src="/assets/js/template.js"></script>
     <!-- endbuild -->
   </body>
 </html>
