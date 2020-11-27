@@ -43,7 +43,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/about-bilyard">Про біляьрд</a>
+                    <a class="nav-link" href="/about">Про біляьрд</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/contact">Контакти</a>
@@ -158,7 +158,7 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>
-                              <a href="{{ route('p.show',$value->id) }}">{{ $value->name }} <i class="mdi mdi-share link-icon"></i></a>
+                              <a href="{{ route('public.show',$value->id) }}">{{ $value->name }} <i class="mdi mdi-share link-icon"></i></a>
                             </td>
                             
                             <td> {{ $value->city }}</td>

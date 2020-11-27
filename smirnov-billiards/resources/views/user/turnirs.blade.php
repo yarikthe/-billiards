@@ -1,5 +1,6 @@
 @extends('layouts.user')
 @section('content')
+@if ( Auth::user() and Auth::user()->role == "user")
 
 <div class="container-fluid">
 <div class="d-flex justify-content-between">
@@ -75,5 +76,9 @@
 
     </div>
 </div>
-
+@else
+  <div class="container">
+    <h1>У вас немає доступу до сторінки</h1>
+  </div>
+@endif
 @endsection

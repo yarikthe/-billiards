@@ -1,5 +1,6 @@
 @extends('layouts.org')
 @section('content')
+@if ( Auth::user() and Auth::user()->role == "org")
 
 <div class="contaoner col-md-8">
 <form method="POST" action="/organizator/player/insert/" enctype="multipart/form-data">
@@ -54,5 +55,9 @@
 				        }
 					  </script>
 </div>
-
+@else
+  <div class="container">
+    <h1>У вас немає доступу до сторінки</h1>
+  </div>
+@endif
 @endsection

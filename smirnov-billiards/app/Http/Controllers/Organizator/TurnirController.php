@@ -387,16 +387,6 @@ class TurnirController //extends Controller
         return redirect('/organizator/turnirs');
     }
 
-    public function roundWin()
-    {
-        // set id win player in round
-    }
-
-    public function koefSetOnPlayers()
-    {
-        // set koef on 2 players in on round
-    }
-
     public function table($id)
     {
         

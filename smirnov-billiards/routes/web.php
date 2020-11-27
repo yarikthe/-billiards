@@ -17,44 +17,26 @@ use App\Turnir;
 use App\Player;
 use App\Claim;
 
+Auth::routes(['verify' => true]);
+
 Route::get('/', function () { 
 
 	$players = Player::all();
-	$turnir = Turnir::where("isDone", 0)->get();
+	$turnir = Turnir::where("isDone", 0)->where("isPiblic",1)->get();
 
-	$turnirold = Turnir::where("isDone", 1)->get();
+	$turnirold = Turnir::where("isDone", 1)->where("isPiblic", 1)->get();
 
 	return view('welcome', compact("players", "turnir", "turnirold")); 
 });
-Route::get('/turnir/show/{id}', 'HomeController@showTurnir')->name('t.show');
-Route::get('/player/show/{id}', 'HomeController@showPlayer')->name('p.show');
 
-Route::get('/go-to-previous-page', function () { return Redirect::back(); });
-Route::get('/turnirs', function () { return view('turnirs.index'); });
-Route::get('/about', function () { return view('public.about'); });
-Route::get('/error', function () { return view('public.error'); });
-Route::get('storage/{filename}', function ($filename)
-{
-    $path = storage_path('public/' . $filename);
+Route::get('/about', 'PublicController@about');
+Route::get('/contact','PublicController@contact');
+Route::get('/error', 'PublicController@error');
 
-    if (!File::exists($path)) {
-        abort(404);
-    }
 
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-
-    return $response;
-});
-
-Route::get('/statisctics', function () { return view('statistics'); });
-Route::get('/prediction', function () { return view('prediction'); });
-Route::get('/stavka', function () { return view('stavka'); }); 
-Route::get('users', 'UserChartController@index');
-Auth::routes(['verify' => true]);
+Route::get('/public/turnir/show/{id}', 'PublicController@showTurnir')->name('t.show');
+Route::get('/public/player/show/{id}', 'PublicController@showPlayer')->name('public.show');
+Route::get('/public/turnir/table/{id}', 'PublicController@table')->name('public.table');
 
 Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 
@@ -80,10 +62,44 @@ Route::group(['middleware' => ['web', 'auth', 'verified']], function(){
 
 
 	        // Super Admin
-			Route::group(['prefix' => 'administrator', 'namespace' => 'Admin'], function() {
-			       
-				//    Route::get('/', 'AdminController@index')->name('admin.index');	
-				// edit users, turnir, player		       
+			Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+				
+				
+				Route::get('/forecast', 'AdminController@forecast');
+				Route::get('/statistics', 'AdminController@stat');
+
+				Route::get('/users', 'AdminController@users');	
+				Route::get('/confirm-org/{id}', 'AdminController@conformUserToOrg');	
+				Route::get('/users/delete/{id}', 'AdminController@usersDelete');
+
+				Route::get('/players', 'AdminController@players');
+				Route::get('/turnirs', 'AdminController@turnirs');
+
+				Route::get('/player/show/{id}', 'AdminController@show')->name('admin.show');
+				Route::get('/player/edit/{id}', 'AdminController@edit')->name('admin.edit');
+				Route::post('/player/update/{id}', 'AdminController@update')->name('admin.update');
+				Route::get('/player/destroy/{id}', 'AdminController@destroy')->name('admin.destroy');
+
+				Route::get('/turnirs', 'AdminController@indexturnirs');
+				Route::get('/turnir/create-new', 'AdminController@newturnirs');
+				Route::post('/turnir/insert', 'AdminController@insertturnirs');
+				Route::get('/turnir/close/{id}', 'AdminController@closeturnirs')->name('adminturnir.close');
+				Route::get('/turnir/delete/{id}', 'AdminController@deleteturnirs')->name('adminturnir.delete');
+				Route::get('/turnir/cancel/{id}', 'AdminController@cancelturnirs')->name('adminturnir.cancel');
+				Route::get('/turnir/public/{id}', 'AdminController@publicturnirs')->name('adminturnir.public');
+				Route::get('/turnir/hidden/{id}', 'AdminController@hiddenturnirs')->name('adminturnir.hidden');
+				Route::get('/turnir/show/{id}', 'AdminController@showturnirs')->name('adminturnir.show');
+				Route::get('/turnir/edit/{id}', 'AdminController@editturnirs')->name('adminturnir.edit');
+				Route::get('/turnir/remove/player/{id}', 'AdminController@removeturnirs')->name('adminturnir.remove');
+				Route::post('/turnir/update/{id}', 'AdminController@updateturnirs')->name('adminturnir.update');
+				Route::post('/turnir/insert-players', 'AdminController@playeraddturnirs');
+
+				Route::post('/turnir/raund/insert', 'AdminController@insertRaundturnirs');
+				Route::get('/turnir/raund/delete/{id}', 'AdminController@deleteRaundturnirs')->name('adminturnir.delete-raund');
+				Route::get('/turnir/raund/win/{id}', 'AdminController@showwinturnirs')->name('adminturnir.showwin');
+				Route::post('/turnir/raund/win/accept/{id}', 'AdminController@winRaundturnirs')->name('adminturnir.win-raund');
+
+				Route::get('/turnir/table/{id}', 'AdminController@tableturnirs')->name('adminturnir.table');
 			});
 
 			// User 
@@ -151,4 +167,21 @@ Route::get('csrf-ajax', function()
     {
         throw new Illuminate\Session\TokenMismatchException;
     }
+});
+
+Route::get('storage/{filename}', function ($filename)
+{
+    $path = storage_path('public/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
 });

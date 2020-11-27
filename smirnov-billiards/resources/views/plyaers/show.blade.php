@@ -1,5 +1,6 @@
 @extends('layouts.org')
 @section('content')
+@if ( Auth::user() and Auth::user()->role == "org")
 
 <div class="container">
 <a href="/organizator/players" class="btn btn-secondary">Назад</a>
@@ -48,5 +49,9 @@
 
     </div>
 </div>
-
+@else
+  <div class="container">
+    <h1>У вас немає доступу до сторінки</h1>
+  </div>
+@endif
 @endsection

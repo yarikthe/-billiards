@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
 <div class="container">
 <div class="d-flex justify-content-between">
    <div class="turnir-header">
@@ -12,11 +11,8 @@
     </p>
    </div>
     <div class="action">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Додати раунд в турнір
-        </button>
-        <a href="/organizator/turnirs" class="btn btn-light"><i class="fa fa-btn fa-trash fa-fw"></i> Назад</a> 
+
+        <a href="/" class="btn btn-light"><i class="fa fa-btn fa-trash fa-fw"></i> Назад</a> 
     </div>                        
    </div>
    <hr>
@@ -37,7 +33,6 @@
                             <label class="btn btn-success"> Турнір Завершений</label>
                         @else
                             <label class="btn btn-primary"> Діючий</label>
-                            <a href="{{ route('turnir.close',$show->id) }}" class="btn btn-light">Завершити</a>
                         @endif 
                     </td>
                 </tr>
@@ -47,11 +42,9 @@
                     </td>
                     <td>
                         @if($show->isPiblic == 1)
-                            <label class="btn btn-success"> Турнір опублікований</label>
-                            <a href="{{ route('turnir.hidden',$show->id) }}" class="btn btn-light">Скрить</a>
+                            <label class="btn btn-success"> Турнір опублікований</label>                           
                         @else
                             <label class="btn btn-light"> Не опублікований</label>
-                            <a href="{{ route('turnir.public',$show->id) }}" class="btn btn-primary">Опублікувати</a>
                         @endif 
                     </td>
                 </tr>
@@ -94,7 +87,7 @@
         
         </div>
 
-        <a href="{{ route('turnir.table',$show->id) }}" class="btn btn-warning mb-2"><i class="fa fa-btn fa-trash fa-fw"></i> Таблиця раундів учасників</a> 
+        <a href="{{ route('public.table',$show->id) }}" class="btn btn-warning mb-2"><i class="fa fa-btn fa-trash fa-fw"></i> Таблиця раундів учасників</a> 
             
         <div class="raunds">
 
@@ -149,5 +142,4 @@
    </div>     
     
 </div>
-
 @endsection

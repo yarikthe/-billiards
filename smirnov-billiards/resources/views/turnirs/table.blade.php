@@ -1,5 +1,6 @@
 @extends('layouts.org')
 @section('content')
+@if ( Auth::user() and (Auth::user()->role == "org" or Auth::user()->role == "user" or Auth::user()->role == "admin"))
 
     <div class="container-fluid">
 
@@ -104,5 +105,9 @@
 
         </div>
     </div>
-
+@else
+  <div class="container">
+    <h1>У вас немає доступу до сторінки</h1>
+  </div>
+@endif
 @endsection

@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="row">
+        <div class="col-12 logo-section">
+          <a href="/" class="logo">
+            <img src="https://img.icons8.com/cotton/452/billiard-ball.png" alt="logo" />
+            <h1>Більярд 7</h1>
+          </a>
+        </div>
+      </div>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

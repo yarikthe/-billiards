@@ -1,5 +1,6 @@
 @extends('layouts.user')
 @section('content')
+@if ( Auth::user() and Auth::user()->role == "user")
 
 <div class="container pt-5 mt-5">
 <div class="d-flex justify-content-between">
@@ -86,7 +87,7 @@
         
         </div>
 
-        <a href="/organizator/turnirs/{id}/map-table-rounds" class="btn btn-warning mb-2"><i class="fa fa-btn fa-trash fa-fw"></i> Таблиця раундів учасників</a> 
+        <a href="{{ route('turnir.table',$show->id) }}" class="btn btn-warning mb-2"><i class="fa fa-btn fa-trash fa-fw"></i> Таблиця раундів учасників</a> 
             
         <div class="raunds">
 
@@ -134,5 +135,9 @@
    </div>     
     
 </div>
-
+@else
+  <div class="container">
+    <h1>У вас немає доступу до сторінки</h1>
+  </div>
+@endif
 @endsection

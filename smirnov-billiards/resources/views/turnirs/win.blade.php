@@ -1,6 +1,7 @@
 
 @extends('layouts.org')
 @section('content')
+@if ( Auth::user() and Auth::user()->role == "org")
 
 
      <div class="container col-md-8">
@@ -43,5 +44,9 @@
         </div>
       </form>
      </div>
-
+@else
+  <div class="container">
+    <h1>У вас немає доступу до сторінки</h1>
+  </div>
+@endif
 @endsection

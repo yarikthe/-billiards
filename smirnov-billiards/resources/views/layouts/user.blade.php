@@ -77,7 +77,7 @@
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="../assets/images/profile/male/image_1.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="/uploads/profile/{{Auth::user()->avatar}}" alt="profile image">
           </div>
           <div class="info-wrapper">
             <p class="user-name">{{ Auth::user()->name }}</p>

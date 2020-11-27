@@ -34,19 +34,4 @@ class HomeController extends Controller
     {
         return view('home');
     }
-
-    public function showTurnir($id)
-    {
-        $show = Turnir::find($id);
-        $players = SetPleyer::where("turnir_id", $id)->get();
-        $player = Player::all();
-        $raund = Raund::where("turnir_id", $id)->get();
-
-        return view("turnirs.public", compact("show", "players", "player", "raund"));
-    }
-
-    public function showPlayer($id)
-    {
-        
-    }
 }

@@ -75,7 +75,7 @@
       <div class="sidebar">
         <div class="user-profile">
           <div class="display-avatar animated-avatar">
-            <img class="profile-img img-lg rounded-circle" src="../assets/images/profile/male/image_1.png" alt="profile image">
+            <img class="profile-img img-lg rounded-circle" src="/uploads/profile/{{Auth::user()->avatar}}" alt="profile image">
           </div>
           <div class="info-wrapper">
             <i>Адміністратор</i>
@@ -90,29 +90,29 @@
             </a>
           </li>
           <li>
-            <a href="/home">
+            <a href="/admin/users">
               <span class="link-title">Користувачі</span>
             </a>
           </li>
           <li>
-            <a href="/home">
+            <a href="/admin/players">
               <span class="link-title">Гравці</span>
             </a>
           </li>
           <li>
-            <a href="/home">
+            <a href="/admin/turnirs">
               <span class="link-title">Турніри</span>
             </a>
           </li>
           
           <li>
-            <a href="pages/forms/form-elements.html">
-              <span class="link-title">Статистика</span>
+            <a href="/admin/statistics">
+              <span class="link-title">Статистика *</span>
             </a>
           </li>
           <li>
-            <a href="pages/icons/material-icons.html">
-              <span class="link-title">Прогноз</span>
+            <a href="/admin/forecast">
+              <span class="link-title">Прогноз *</span>
             </a>
           </li>
          

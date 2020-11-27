@@ -1,6 +1,6 @@
 @extends('layouts.org')
 @section('content')
-
+@if ( Auth::user() and Auth::user()->role == "org")
 <div class="container">
 <form method="POST" action="{{ route('player.update', ['id' => $player->id]) }}" enctype="multipart/form-data">
 						  @csrf  
@@ -54,5 +54,9 @@
 				        }
 					  </script>
 </div>
-
+@else
+  <div class="container">
+    <h1>У вас немає доступу до сторінки</h1>
+  </div>
+@endif
 @endsection

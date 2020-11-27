@@ -25,7 +25,8 @@ class UserController //extends Controller
         $claim->user_id = $request->input("user_id");
         $claim->dateClaim = date('Y-m-d');
         $claim->company = $request->input("company");
-
+        $claim->isOk = 0;
+        
         if($claim->save())
         {
             return redirect("/home");

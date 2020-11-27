@@ -20,14 +20,7 @@
   </head>
   <body>
     <div class="authentication-theme auth-style_1">
-      <div class="row">
-        <div class="col-12 logo-section">
-          <a href="/" class="logo">
-            <img src="https://img.icons8.com/cotton/452/billiard-ball.png" alt="logo" />
-            <h1>Більярд 7</h1>
-          </a>
-        </div>
-      </div>
+      
       @yield('content')
       
       <div class="auth_footer">
