@@ -19,6 +19,8 @@ use App\Claim;
 
 Auth::routes(['verify' => true]);
 
+Route::get('charts', 'ChartController@index')->name('chart.index');
+
 Route::get('/', function () { 
 
 	$players = Player::all();

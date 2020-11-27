@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Nov 25, 2020 at 04:44 PM
+-- Generation Time: Nov 27, 2020 at 04:29 PM
 -- Server version: 5.7.30
 -- PHP Version: 7.4.9
 
@@ -25,6 +25,7 @@ CREATE TABLE `claim_organizators` (
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `dateClaim` date NOT NULL,
   `company` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isOk` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -33,8 +34,10 @@ CREATE TABLE `claim_organizators` (
 -- Dumping data for table `claim_organizators`
 --
 
-INSERT INTO `claim_organizators` (`id`, `user_id`, `dateClaim`, `company`, `created_at`, `updated_at`) VALUES
-(3, 1, '2020-11-24', 'My Best Company', '2020-11-24 14:05:25', '2020-11-24 14:05:25');
+INSERT INTO `claim_organizators` (`id`, `user_id`, `dateClaim`, `company`, `isOk`, `created_at`, `updated_at`) VALUES
+(3, 1, '2020-11-24', 'My Best Company', 1, '2020-11-24 14:05:25', '2020-11-24 14:05:25'),
+(5, 2, '2020-11-02', 'ШАРИК', 1, NULL, NULL),
+(7, 7, '2020-11-27', 'ZT Company', 0, '2020-11-27 12:46:08', '2020-11-27 12:46:08');
 
 -- --------------------------------------------------------
 
@@ -147,9 +150,9 @@ CREATE TABLE `players` (
 --
 
 INSERT INTO `players` (`id`, `name`, `photo`, `sportTitul`, `city`, `dateBorn`, `countPointStart`, `created_at`, `updated_at`) VALUES
-(11, 'Roni', '1605636258.png', 'Master', 'Житомир', '2020-11-03', '214', '2020-11-17 16:04:18', '2020-11-20 22:25:32'),
+(11, 'Roni2', '1605636258.png', 'Master', 'Житомир', '2020-11-03', '488', '2020-11-17 16:04:18', '2020-11-27 13:07:21'),
 (12, 'Ann', '1605640502.png', 'Master', 'Житомир', '2020-11-29', '344', '2020-11-17 17:15:02', '2020-11-20 22:25:43'),
-(13, 'BOB', '1605640818.png', '123', 'qew', '2020-11-20', '232', '2020-11-17 17:20:18', '2020-11-20 22:25:20'),
+(13, 'BOB', '1605640818.png', '123', 'qew', '2020-11-20', '266', '2020-11-17 17:20:18', '2020-11-25 20:21:38'),
 (14, 'Gery', '1605918305.png', 'Master', 'Житомир', '2020-11-25', '324', '2020-11-20 22:25:05', '2020-11-20 22:25:05'),
 (15, 'Steve', '1605918375.png', 'Master', 'Житомир', '2020-11-19', '424', '2020-11-20 22:26:15', '2020-11-20 22:26:15');
 
@@ -182,7 +185,19 @@ INSERT INTO `p_r` (`id`, `name`, `user_id`, `raund_id`, `created_at`, `updated_a
 (16, '[\"BOB\"]', 13, 15, '2020-11-25 13:42:57', '2020-11-25 13:42:57'),
 (17, '[\"Steve\"]', 15, 15, '2020-11-25 13:42:57', '2020-11-25 13:42:57'),
 (18, '[\"Roni\"]', 11, 16, '2020-11-25 13:48:55', '2020-11-25 13:48:55'),
-(19, '[\"Steve\"]', 15, 16, '2020-11-25 13:48:55', '2020-11-25 13:48:55');
+(19, '[\"Steve\"]', 15, 16, '2020-11-25 13:48:55', '2020-11-25 13:48:55'),
+(20, '[\"Roni\"]', 11, 17, '2020-11-25 20:15:59', '2020-11-25 20:15:59'),
+(21, '[\"BOB\"]', 13, 17, '2020-11-25 20:15:59', '2020-11-25 20:15:59'),
+(22, '[\"Gery\"]', 14, 18, '2020-11-25 20:16:28', '2020-11-25 20:16:28'),
+(23, '[\"Steve\"]', 15, 18, '2020-11-25 20:16:28', '2020-11-25 20:16:28'),
+(24, '[\"Roni\"]', 11, 19, '2020-11-25 20:17:13', '2020-11-25 20:17:13'),
+(25, '[\"Steve\"]', 15, 19, '2020-11-25 20:17:13', '2020-11-25 20:17:13'),
+(26, '[\"Roni\"]', 11, 20, '2020-11-25 20:20:29', '2020-11-25 20:20:29'),
+(27, '[\"Ann\"]', 12, 20, '2020-11-25 20:20:29', '2020-11-25 20:20:29'),
+(28, '[\"BOB\"]', 13, 21, '2020-11-25 20:21:14', '2020-11-25 20:21:14'),
+(29, '[\"Gery\"]', 14, 21, '2020-11-25 20:21:14', '2020-11-25 20:21:14'),
+(30, '[\"Roni\"]', 11, 22, '2020-11-25 20:21:56', '2020-11-25 20:21:56'),
+(31, '[\"BOB\"]', 13, 22, '2020-11-25 20:21:56', '2020-11-25 20:21:56');
 
 -- --------------------------------------------------------
 
@@ -215,7 +230,10 @@ INSERT INTO `raunds` (`id`, `name`, `turnir_id`, `player_01_ID`, `player_02_ID`,
 (13, 'R1', 19, 12, 13, '2020-11-25', '1.00', '2.00', 13, 3, 0, 1, '2020-11-25 13:41:39', '2020-11-25 13:42:39'),
 (14, 'R1', 19, 11, 14, '2020-11-26', '2.00', '3.00', 11, 677, 0, 1, '2020-11-25 13:42:23', '2020-11-25 13:43:57'),
 (15, 'R2', 19, 13, 15, '2020-11-27', '2.00', '3.00', 15, 354, 0, 1, '2020-11-25 13:42:57', '2020-11-25 13:48:06'),
-(16, 'R3', 19, 11, 15, '2020-12-01', '4.00', '5.00', 15, 23, 0, 1, '2020-11-25 13:48:55', '2020-11-25 13:50:51');
+(16, 'R3', 19, 11, 15, '2020-12-01', '4.00', '5.00', 15, 23, 0, 1, '2020-11-25 13:48:55', '2020-11-25 13:50:51'),
+(20, '1', 27, 11, 12, '2020-11-27', '1.00', '2.00', 11, 43, 0, 1, '2020-11-25 20:20:29', '2020-11-25 20:21:30'),
+(21, '1', 27, 13, 14, '2020-11-27', '2.00', '4.00', 13, 34, 0, 1, '2020-11-25 20:21:14', '2020-11-25 20:21:38'),
+(22, '2', 27, 11, 13, '2020-11-28', '3.00', '3.00', 13, 23, 0, 1, '2020-11-25 20:21:56', '2020-11-25 20:22:06');
 
 -- --------------------------------------------------------
 
@@ -239,18 +257,13 @@ INSERT INTO `set_pleyers` (`id`, `turnir_id`, `player_id`, `created_at`, `update
 (6, 18, 12, '2020-11-18 11:40:27', '2020-11-18 11:40:27'),
 (8, 19, 12, '2020-11-18 11:44:37', '2020-11-18 11:44:37'),
 (11, 19, 13, '2020-11-20 14:34:43', '2020-11-20 14:34:43'),
-(12, 21, 11, '2020-11-20 22:32:35', '2020-11-20 22:32:35'),
-(13, 21, 12, '2020-11-20 22:32:35', '2020-11-20 22:32:35'),
-(14, 21, 14, '2020-11-20 22:32:35', '2020-11-20 22:32:35'),
-(15, 21, 15, '2020-11-21 11:29:37', '2020-11-21 11:29:37'),
-(16, 22, 12, '2020-11-24 15:48:30', '2020-11-24 15:48:30'),
-(17, 22, 15, '2020-11-24 15:48:30', '2020-11-24 15:48:30'),
 (18, 19, 11, '2020-11-25 13:01:29', '2020-11-25 13:01:29'),
 (19, 19, 14, '2020-11-25 13:01:29', '2020-11-25 13:01:29'),
 (20, 19, 15, '2020-11-25 13:01:29', '2020-11-25 13:01:29'),
-(28, 25, 13, '2020-11-25 14:43:34', '2020-11-25 14:43:34'),
-(29, 25, 14, '2020-11-25 14:43:34', '2020-11-25 14:43:34'),
-(30, 25, 15, '2020-11-25 14:43:34', '2020-11-25 14:43:34');
+(35, 27, 11, '2020-11-25 20:20:14', '2020-11-25 20:20:14'),
+(36, 27, 12, '2020-11-25 20:20:14', '2020-11-25 20:20:14'),
+(37, 27, 13, '2020-11-25 20:20:14', '2020-11-25 20:20:14'),
+(38, 27, 14, '2020-11-25 20:20:14', '2020-11-25 20:20:14');
 
 -- --------------------------------------------------------
 
@@ -327,10 +340,8 @@ CREATE TABLE `turnirs` (
 
 INSERT INTO `turnirs` (`id`, `name`, `desc`, `prizMoney`, `place`, `date_start`, `date_end`, `win_player_id`, `pointWin`, `isPiblic`, `isDone`, `organizator_id`, `created_at`, `updated_at`) VALUES
 (18, 'Winter', 'winter cup', '2132.00', 'Житомир', '2020-12-24', '2021-01-07', 0, 0, 0, 0, 2, '2020-11-18 11:40:27', '2020-11-24 15:48:04'),
-(19, 'Now Edit', 'now cup', '21323.00', 'Житомир', '2020-11-16', '2020-11-20', 15, 424, 1, 1, 2, '2020-11-18 11:44:37', '2020-11-25 13:51:56'),
-(21, 'ZT Billiards', 'Житомирськи йтурнір по більярду', '3451.00', 'Житомир', '2020-11-28', '2020-12-06', 0, 0, 0, 0, 2, '2020-11-20 22:32:35', '2020-11-20 22:34:03'),
-(22, 'now turnit', 'jkv n dfj dfo if ldkf,', '3244.00', 'Житомир', '2020-11-23', '2020-11-28', 0, 0, 1, 1, 2, '2020-11-24 15:48:30', '2020-11-25 14:10:26'),
-(25, 'wqerqr', 'qwr', '1234.00', 'wqr', '2020-11-23', '2020-12-03', 15, 424, 0, 1, 2, '2020-11-25 14:43:34', '2020-11-25 14:43:40');
+(19, 'Now Edit1', 'now cup', '21323.00', 'Житомир', '2020-11-16', '2020-11-20', 0, 0, 1, 0, 3, '2020-11-18 11:44:37', '2020-11-27 13:27:19'),
+(27, 'Cup Man Text', 'Cup Man Text', '1234.00', 'Житомир', '2020-11-25', '2020-11-28', 14, 324, 0, 1, 2, '2020-11-25 20:20:14', '2020-11-25 20:22:13');
 
 -- --------------------------------------------------------
 
@@ -344,7 +355,7 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'logo.png',
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default-user.jpg',
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `balance` decimal(12,2) NOT NULL DEFAULT '0.00',
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -358,9 +369,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `avatar`, `phone`, `balance`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Смірнов', 'smirnov@mail.com', '$2y$10$pbVezxHm2/wIZtykh9fj0uFCEppD8xaPEhCkXiS9oS9TlentjMj66', 'user', 'logo.png', '', '15000.00', NULL, NULL, '2020-11-11 21:06:13', '2020-11-25 13:20:37'),
-(2, 'ТОВ \"Шарик\"', 'org@mail.com', '$2y$10$gkSsb/Du2XPuH8/ELej7vOouk5qXDQLZQEHXs4oB3rsBrk5zrEgO6', 'org', 'logo.png', '', '0.00', NULL, NULL, '2020-11-11 21:07:46', '2020-11-11 21:07:46'),
-(3, 'BS7', 'admin@mail.com', '$2y$10$32khsZuAV5P3ChIKhfpAwOHNggcUwIuYoPYin4lEnytvkWyi9qOrq', 'admin', 'logo.png', '', '0.00', NULL, NULL, '2020-11-11 21:08:56', '2020-11-11 21:08:56');
+(1, 'Смірнов', 'smirnov@mail.com', '$2y$10$pbVezxHm2/wIZtykh9fj0uFCEppD8xaPEhCkXiS9oS9TlentjMj66', 'user', 'default-user.jpg', '098-09-12-202', '15000.00', NULL, NULL, '2020-11-11 21:06:13', '2020-11-27 12:16:39'),
+(2, 'ТОВ \"Шарик\"', 'org@mail.com', '$2y$10$gkSsb/Du2XPuH8/ELej7vOouk5qXDQLZQEHXs4oB3rsBrk5zrEgO6', 'org', 'default-user.jpg', '', '0.00', NULL, NULL, '2020-11-11 21:07:46', '2020-11-11 21:07:46'),
+(3, 'BS7', 'admin@mail.com', '$2y$10$32khsZuAV5P3ChIKhfpAwOHNggcUwIuYoPYin4lEnytvkWyi9qOrq', 'admin', 'default-user.jpg', '', '0.00', NULL, NULL, '2020-11-11 21:08:56', '2020-11-11 21:08:56'),
+(7, 'test', 'test@mail.com', '$2y$10$LFCsQZAanrePpimJja7LzO0VCiO8dJst1g/3BOtCW0M2v7ugGub7u', 'user', 'default-user.jpg', '', '0.00', NULL, NULL, '2020-11-27 12:45:55', '2020-11-27 12:45:55');
 
 --
 -- Indexes for dumped tables
@@ -470,7 +482,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `claim_organizators`
 --
 ALTER TABLE `claim_organizators`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -506,19 +518,19 @@ ALTER TABLE `players`
 -- AUTO_INCREMENT for table `p_r`
 --
 ALTER TABLE `p_r`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `raunds`
 --
 ALTER TABLE `raunds`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `set_pleyers`
 --
 ALTER TABLE `set_pleyers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `statistics`
@@ -536,13 +548,13 @@ ALTER TABLE `stavkas`
 -- AUTO_INCREMENT for table `turnirs`
 --
 ALTER TABLE `turnirs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
