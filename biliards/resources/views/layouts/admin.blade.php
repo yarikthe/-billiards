@@ -106,7 +106,7 @@
           </li>
           
           <li>
-            <a href="/admin/statistics">
+            <a href="/statistics">
               <span class="link-title">Статистика *</span>
             </a>
           </li>
