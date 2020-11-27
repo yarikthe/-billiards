@@ -107,7 +107,7 @@
           
           <li>
             <a href="/statistics">
-              <span class="link-title">Статистика *</span>
+              <span class="link-title">Статистика</span>
             </a>
           </li>
           <li>
