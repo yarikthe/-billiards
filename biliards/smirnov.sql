@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Nov 27, 2020 at 04:29 PM
+-- Generation Time: Nov 28, 2020 at 03:52 PM
 -- Server version: 5.7.30
 -- PHP Version: 7.4.9
 
@@ -58,21 +58,6 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `forecasts`
---
-
-CREATE TABLE `forecasts` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `dateForecast` date NOT NULL,
-  `valueForecast` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `migrations`
 --
 
@@ -103,21 +88,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `news`
---
-
-CREATE TABLE `news` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pic` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `password_resets`
 --
 
@@ -141,6 +111,8 @@ CREATE TABLE `players` (
   `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dateBorn` date NOT NULL,
   `countPointStart` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `countWin` int(11) NOT NULL,
+  `countLoss` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -149,12 +121,12 @@ CREATE TABLE `players` (
 -- Dumping data for table `players`
 --
 
-INSERT INTO `players` (`id`, `name`, `photo`, `sportTitul`, `city`, `dateBorn`, `countPointStart`, `created_at`, `updated_at`) VALUES
-(11, 'Roni2', '1605636258.png', 'Master', 'Житомир', '2020-11-03', '488', '2020-11-17 16:04:18', '2020-11-27 13:07:21'),
-(12, 'Ann', '1605640502.png', 'Master', 'Житомир', '2020-11-29', '344', '2020-11-17 17:15:02', '2020-11-20 22:25:43'),
-(13, 'BOB', '1605640818.png', '123', 'qew', '2020-11-20', '266', '2020-11-17 17:20:18', '2020-11-25 20:21:38'),
-(14, 'Gery', '1605918305.png', 'Master', 'Житомир', '2020-11-25', '324', '2020-11-20 22:25:05', '2020-11-20 22:25:05'),
-(15, 'Steve', '1605918375.png', 'Master', 'Житомир', '2020-11-19', '424', '2020-11-20 22:26:15', '2020-11-20 22:26:15');
+INSERT INTO `players` (`id`, `name`, `photo`, `sportTitul`, `city`, `dateBorn`, `countPointStart`, `countWin`, `countLoss`, `created_at`, `updated_at`) VALUES
+(11, 'Roni2', '1605636258.png', 'Master', 'Житомир', '2020-11-03', '488', 12, 2, '2020-11-17 16:04:18', '2020-11-27 13:07:21'),
+(12, 'Ann', '1605640502.png', 'Master', 'Житомир', '2020-11-29', '344', 3, 4, '2020-11-17 17:15:02', '2020-11-20 22:25:43'),
+(13, 'BOB', '1605640818.png', '123', 'qew', '2020-11-20', '266', 3, 4, '2020-11-17 17:20:18', '2020-11-25 20:21:38'),
+(14, 'Gery', '1605918305.png', 'Master', 'Житомир', '2020-11-25', '324', 1, 3, '2020-11-20 22:25:05', '2020-11-20 22:25:05'),
+(15, 'Steve', '1605918375.png', 'Master', 'Житомир', '2020-11-19', '424', 23, 12, '2020-11-20 22:26:15', '2020-11-20 22:26:15');
 
 -- --------------------------------------------------------
 
@@ -197,7 +169,11 @@ INSERT INTO `p_r` (`id`, `name`, `user_id`, `raund_id`, `created_at`, `updated_a
 (28, '[\"BOB\"]', 13, 21, '2020-11-25 20:21:14', '2020-11-25 20:21:14'),
 (29, '[\"Gery\"]', 14, 21, '2020-11-25 20:21:14', '2020-11-25 20:21:14'),
 (30, '[\"Roni\"]', 11, 22, '2020-11-25 20:21:56', '2020-11-25 20:21:56'),
-(31, '[\"BOB\"]', 13, 22, '2020-11-25 20:21:56', '2020-11-25 20:21:56');
+(31, '[\"BOB\"]', 13, 22, '2020-11-25 20:21:56', '2020-11-25 20:21:56'),
+(32, '[\"BOB\"]', 13, 23, '2020-11-28 10:46:42', '2020-11-28 10:46:42'),
+(33, '[\"Gery\"]', 14, 23, '2020-11-28 10:46:42', '2020-11-28 10:46:42'),
+(34, '[\"Roni2\"]', 11, 24, '2020-11-28 10:48:31', '2020-11-28 10:48:31'),
+(35, '[\"BOB\"]', 13, 24, '2020-11-28 10:48:31', '2020-11-28 10:48:31');
 
 -- --------------------------------------------------------
 
@@ -233,7 +209,9 @@ INSERT INTO `raunds` (`id`, `name`, `turnir_id`, `player_01_ID`, `player_02_ID`,
 (16, 'R3', 19, 11, 15, '2020-12-01', '4.00', '5.00', 15, 23, 0, 1, '2020-11-25 13:48:55', '2020-11-25 13:50:51'),
 (20, '1', 27, 11, 12, '2020-11-27', '1.00', '2.00', 11, 43, 0, 1, '2020-11-25 20:20:29', '2020-11-25 20:21:30'),
 (21, '1', 27, 13, 14, '2020-11-27', '2.00', '4.00', 13, 34, 0, 1, '2020-11-25 20:21:14', '2020-11-25 20:21:38'),
-(22, '2', 27, 11, 13, '2020-11-28', '3.00', '3.00', 13, 23, 0, 1, '2020-11-25 20:21:56', '2020-11-25 20:22:06');
+(22, '2', 27, 11, 13, '2020-11-28', '3.00', '3.00', 13, 23, 0, 1, '2020-11-25 20:21:56', '2020-11-25 20:22:06'),
+(23, '4', 19, 13, 14, '2020-11-26', '1.00', '2.00', 0, 0, 0, 0, '2020-11-28 10:46:42', '2020-11-28 10:46:42'),
+(24, '1', 28, 11, 13, '2020-11-29', '2.00', '3.00', 0, 0, 0, 0, '2020-11-28 10:48:31', '2020-11-28 10:48:31');
 
 -- --------------------------------------------------------
 
@@ -263,24 +241,10 @@ INSERT INTO `set_pleyers` (`id`, `turnir_id`, `player_id`, `created_at`, `update
 (35, 27, 11, '2020-11-25 20:20:14', '2020-11-25 20:20:14'),
 (36, 27, 12, '2020-11-25 20:20:14', '2020-11-25 20:20:14'),
 (37, 27, 13, '2020-11-25 20:20:14', '2020-11-25 20:20:14'),
-(38, 27, 14, '2020-11-25 20:20:14', '2020-11-25 20:20:14');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `statistics`
---
-
-CREATE TABLE `statistics` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `turnir_id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `countWin` int(11) NOT NULL DEFAULT '0',
-  `countFail` int(11) NOT NULL DEFAULT '0',
-  `countPoint` int(11) NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(38, 27, 14, '2020-11-25 20:20:14', '2020-11-25 20:20:14'),
+(39, 28, 11, '2020-11-28 10:48:05', '2020-11-28 10:48:05'),
+(40, 28, 13, '2020-11-28 10:48:05', '2020-11-28 10:48:05'),
+(41, 28, 15, '2020-11-28 10:48:05', '2020-11-28 10:48:05');
 
 -- --------------------------------------------------------
 
@@ -309,7 +273,8 @@ CREATE TABLE `stavkas` (
 INSERT INTO `stavkas` (`id`, `user_id`, `turnir_id`, `raund_id`, `player_id`, `money`, `dateStavka`, `isWin`, `total`, `created_at`, `updated_at`) VALUES
 (6, 1, 19, 11, 11, '1203.00', '2020-11-25', 1, '14436', '2020-11-25 13:05:37', '2020-11-25 13:11:30'),
 (7, 1, 19, 12, 13, '436.00', '2020-11-25', 0, '-436', '2020-11-25 13:19:02', '2020-11-25 13:19:02'),
-(8, 1, 19, 12, 11, '500.00', '2020-11-25', 1, '1500', '2020-11-25 13:20:21', '2020-11-25 13:20:37');
+(8, 1, 19, 12, 11, '500.00', '2020-11-25', 1, '1500', '2020-11-25 13:20:21', '2020-11-25 13:20:37'),
+(9, 1, 19, 14, 14, '32432.00', '2020-11-28', 2, '0', '2020-11-28 10:43:19', '2020-11-28 10:43:19');
 
 -- --------------------------------------------------------
 
@@ -339,9 +304,10 @@ CREATE TABLE `turnirs` (
 --
 
 INSERT INTO `turnirs` (`id`, `name`, `desc`, `prizMoney`, `place`, `date_start`, `date_end`, `win_player_id`, `pointWin`, `isPiblic`, `isDone`, `organizator_id`, `created_at`, `updated_at`) VALUES
-(18, 'Winter', 'winter cup', '2132.00', 'Житомир', '2020-12-24', '2021-01-07', 0, 0, 0, 0, 2, '2020-11-18 11:40:27', '2020-11-24 15:48:04'),
+(18, 'Winter', 'winter cup', '2132.00', 'Житомир', '2020-12-24', '2021-01-07', 0, 0, 1, 0, 2, '2020-11-18 11:40:27', '2020-11-28 10:44:26'),
 (19, 'Now Edit1', 'now cup', '21323.00', 'Житомир', '2020-11-16', '2020-11-20', 0, 0, 1, 0, 3, '2020-11-18 11:44:37', '2020-11-27 13:27:19'),
-(27, 'Cup Man Text', 'Cup Man Text', '1234.00', 'Житомир', '2020-11-25', '2020-11-28', 14, 324, 0, 1, 2, '2020-11-25 20:20:14', '2020-11-25 20:22:13');
+(27, 'Cup Man Text', 'Cup Man Text', '1234.00', 'Житомир', '2020-11-25', '2020-11-28', 14, 324, 1, 1, 2, '2020-11-25 20:20:14', '2020-11-28 13:46:56'),
+(28, 'weewqeq', 'qeqeeq', '5659.00', 'Житомир', '2020-11-27', '2020-12-03', 0, 0, 0, 0, 2, '2020-11-28 10:48:05', '2020-11-28 10:48:05');
 
 -- --------------------------------------------------------
 
@@ -369,10 +335,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `avatar`, `phone`, `balance`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Смірнов', 'smirnov@mail.com', '$2y$10$pbVezxHm2/wIZtykh9fj0uFCEppD8xaPEhCkXiS9oS9TlentjMj66', 'user', 'default-user.jpg', '098-09-12-202', '15000.00', NULL, NULL, '2020-11-11 21:06:13', '2020-11-27 12:16:39'),
+(1, 'Смірнов', 'smirnov@mail.com', '$2y$10$pbVezxHm2/wIZtykh9fj0uFCEppD8xaPEhCkXiS9oS9TlentjMj66', 'user', 'default-user.jpg', '098-09-12-202', '33326.00', NULL, NULL, '2020-11-11 21:06:13', '2020-11-28 10:43:19'),
 (2, 'ТОВ \"Шарик\"', 'org@mail.com', '$2y$10$gkSsb/Du2XPuH8/ELej7vOouk5qXDQLZQEHXs4oB3rsBrk5zrEgO6', 'org', 'default-user.jpg', '', '0.00', NULL, NULL, '2020-11-11 21:07:46', '2020-11-11 21:07:46'),
 (3, 'BS7', 'admin@mail.com', '$2y$10$32khsZuAV5P3ChIKhfpAwOHNggcUwIuYoPYin4lEnytvkWyi9qOrq', 'admin', 'default-user.jpg', '', '0.00', NULL, NULL, '2020-11-11 21:08:56', '2020-11-11 21:08:56'),
-(7, 'test', 'test@mail.com', '$2y$10$LFCsQZAanrePpimJja7LzO0VCiO8dJst1g/3BOtCW0M2v7ugGub7u', 'user', 'default-user.jpg', '', '0.00', NULL, NULL, '2020-11-27 12:45:55', '2020-11-27 12:45:55');
+(7, 'test', 'test@mail.com', '$2y$10$LFCsQZAanrePpimJja7LzO0VCiO8dJst1g/3BOtCW0M2v7ugGub7u', 'user', 'default-user.jpg', '', '467.00', NULL, NULL, '2020-11-27 12:45:55', '2020-11-28 10:50:05'),
+(18, 'werwer', '1111234@we.we', '$2y$10$S1yPWj8fgEcvThgl3juGL.NHmm0oB5s5a49Z3O3Bd4bdtMXYqAjeG', 'user', 'default-user.jpg', '23432432', '0.00', NULL, NULL, '2020-11-27 16:12:09', '2020-11-27 16:12:09');
 
 --
 -- Indexes for dumped tables
@@ -393,22 +360,9 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `forecasts`
---
-ALTER TABLE `forecasts`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `forecasts_user_id_index` (`user_id`);
-
---
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `news`
---
-ALTER TABLE `news`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -443,14 +397,6 @@ ALTER TABLE `set_pleyers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `set_pleyers_turnir_id_index` (`turnir_id`),
   ADD KEY `set_pleyers_player_id_index` (`player_id`);
-
---
--- Indexes for table `statistics`
---
-ALTER TABLE `statistics`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `statistics_turnir_id_index` (`turnir_id`),
-  ADD KEY `statistics_user_id_index` (`user_id`);
 
 --
 -- Indexes for table `stavkas`
@@ -491,22 +437,10 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `forecasts`
---
-ALTER TABLE `forecasts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT for table `news`
---
-ALTER TABLE `news`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `players`
@@ -518,43 +452,37 @@ ALTER TABLE `players`
 -- AUTO_INCREMENT for table `p_r`
 --
 ALTER TABLE `p_r`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `raunds`
 --
 ALTER TABLE `raunds`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `set_pleyers`
 --
 ALTER TABLE `set_pleyers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
-
---
--- AUTO_INCREMENT for table `statistics`
---
-ALTER TABLE `statistics`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `stavkas`
 --
 ALTER TABLE `stavkas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `turnirs`
 --
 ALTER TABLE `turnirs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
@@ -565,12 +493,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `claim_organizators`
   ADD CONSTRAINT `claim_organizators_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `forecasts`
---
-ALTER TABLE `forecasts`
-  ADD CONSTRAINT `forecasts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `raunds`
@@ -584,13 +506,6 @@ ALTER TABLE `raunds`
 ALTER TABLE `set_pleyers`
   ADD CONSTRAINT `set_pleyers_player_id_foreign` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `set_pleyers_turnir_id_foreign` FOREIGN KEY (`turnir_id`) REFERENCES `turnirs` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `statistics`
---
-ALTER TABLE `statistics`
-  ADD CONSTRAINT `statistics_turnir_id_foreign` FOREIGN KEY (`turnir_id`) REFERENCES `turnirs` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `statistics_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `stavkas`
