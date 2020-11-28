@@ -33,6 +33,7 @@ Route::get('/', function () {
 	return view('welcome', compact("players", "turnir", "turnirold")); 
 });
 
+Route::get('/forecast', 'ForecastController@index');
 Route::get('/statistics', 'ChartController@index')->name('chart.index');
 
 Route::get('/about', 'PublicController@about');

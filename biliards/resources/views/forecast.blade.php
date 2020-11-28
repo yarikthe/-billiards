@@ -10,6 +10,8 @@
     <div class="content">
         *developed
     </div>
+    First result(b): 
 
+    
 </div>
 @endsection
