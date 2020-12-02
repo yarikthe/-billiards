@@ -46,62 +46,67 @@
         </div>
         <div class="col-md-9">
 
-            <table>
-                <tr>
-                    <td>
-                    q
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    2
-                    </td>
-                </tr>
-            </table>
-            @foreach($raund as $key => $value)
+<table>
+@foreach($raund as $key => $value)
+<tr>  
+    <td>
+    <br>
+    Raund {{$value->name}}
+    @foreach($raund as $keyR => $valueR)
+  
+        @if($value->name ==  $valueR->name and $key == $keyR)
+        
+            <br>
+
+            <div class="card-item-table p-2 rounded-lg shadow"> 
+                <div class="d-flex justify-content-between">
+                    @foreach($player as $key3 => $value3)
                 
-                <br>
-                {{
-                    $value->name
-                }}
-                <br>
-                <div class="card-item-table p-2 rounded-lg shadow col-md-2"> <div class="d-flex justify-content-between">
-                @foreach($player as $key => $value3)
-               
-                    @if($value->player_01_ID == $value3->id )
+                        @if($value->player_01_ID == $value3->id)
 
-                       Player1
-                        {{
-                            $value3->name
-                        }} 
-                        <br>
-                    @endif
-                    
-                    @if($value->player_02_ID == $value3->id)
+                        Player1 -
+                            {{
+                                $value3->name
+                            }} 
+                            <br>
+                        @endif
+                        
+                        @if($value->player_02_ID == $value3->id)
 
-                       Player2
-                        {{
-                            $value3->name
-                        }} 
-                        <br>
-                    @endif
-                    
-                    @if($value->win_player_id == $value3->id )
+                        Player2 -
+                            {{
+                                $value3->name
+                            }} 
+                            <br>
+                        @endif
+                        
+                        @if($value->win_player_id == $value3->id )
 
-                       Win
-                        {{
-                            $value3->name
-                        }} 
-                        <br>
-                    @endif
-                    
-                @endforeach</div>
+                        
+                            <u class="p-1 bg-info">Win -{{
+                                $value3->name
+                            }} </u>
+                            <br>
+                        @endif
+                        
+                    @endforeach
                 </div>
-                
-            @endforeach
+            </div>
+           
+        @else
+            </td>
             
-            
-        </div>
+            <td>
+        @endif
+   @endforeach
+   </td>
+</tr>
+@endforeach
+
+</table>
+
+
+</div>
 
         </div>
     </div>
