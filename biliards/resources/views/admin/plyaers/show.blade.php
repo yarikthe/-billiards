@@ -45,6 +45,16 @@
                         
                               <input type="number" id="countPointStart" readonly value="{{ $player->countPointStart }}" name="countPointStart" min="100" max="1000">
                         </div>
+
+                        <div class="form-group"><label>Премоги</label>
+                        
+                              <input type="number" id="countWin" readonly value="{{ $player->countWin }}" name="countWin" min="1" max="1000" step="1">
+                        </div>
+
+                        <div class="form-group"><label>Програши</label>
+                        
+                              <input type="number" id="countLoss" readonly value="{{ $player->countLoss }}" name="countLoss" min="1" max="1000" step="1">
+                        </div>
     </div>
 
     </div>

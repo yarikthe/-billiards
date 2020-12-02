@@ -16,7 +16,7 @@ class PlayerController //extends Controller
      */
     public function index()
     {
-        $players = Player::paginate(4);
+        $players = Player::orderBy("created_at", "DESC")->paginate(4);
 
         return view('plyaers.index', compact("players"));
     }
@@ -58,6 +58,8 @@ class PlayerController //extends Controller
         $player->city = $request->input('city');
         $player->dateBorn = $request->input('dateBorn');
         $player->countPointStart = $request->input('countPointStart');
+        $player->countWin = $request->input('countWin');
+        $player->countLoss = $request->input('countLoss');
         
         if($player->save()){
             return redirect('/organizator/players/');

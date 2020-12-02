@@ -36,6 +36,16 @@
                           
                                 <input type="number" id="countPointStart" class="form-control"  name="countPointStart" min="100" max="1000">
                           </div>
+
+                           <div class="form-group"><label>К-ть перемог</label>
+                          
+                                <input type="number" id="countWin" class="form-control"  name="countWin" min="1" max="1000" step="1">
+                          </div>
+
+                           <div class="form-group"><label>К-ть програшів</label>
+                          
+                                <input type="number" id="countLoss" class="form-control"  name="countLoss" min="1" max="1000" step="1">
+                          </div>
 						 
 
 						  <button type="submit" class="btn btn-success">Додати</button>

@@ -131,13 +131,13 @@
                     @endforeach
                     </div>
                     @if($value->isDone == 0)
-                        <a href="{{ route('turnir.showwin', $value->id) }}" class="btn btn-success">Завершити</a> 
+                        <a href="{{ route('adminturnir.showwin', $value->id) }}" class="btn btn-success">Завершити</a> 
                     @else
                         <i>Раунд завершено</i>
                         <hr>
                         @foreach($player as $key => $value2)    
                             @if($value->win_player_id == $value2->id)
-                                <a href="{{ route('player.show',$value2->id) }}" class="p-1">
+                                <a href="{{ route('admin.show',$value2->id) }}" class="p-1">
                                 <i class="mdi mdi-crown link-icon bg-success p-2 rounded-lg text-white"></i>
                                          {{ $value2->name }}
                                 </a>

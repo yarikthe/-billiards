@@ -72,7 +72,7 @@ class AdminController //extends Controller
 
     public function players()
     {
-        $players = Player::paginate(4);
+        $players = Player::orderBy("created_at", "DESC")->paginate(4);
 
         return view('admin.players', compact("players"));
     }

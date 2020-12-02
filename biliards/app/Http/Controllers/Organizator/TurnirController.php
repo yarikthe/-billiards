@@ -267,7 +267,35 @@ class TurnirController //extends Controller
 
         $raund = Raund::find($id);
 
+        $win = $raund->win_player_id;
+
+        $pl1 = $raund->player_01_ID;
+        $pl2 = $raund->player_02_ID;
+
+
         if($raund->delete()){
+
+            if($win == $pl1){
+
+                $player_1 = Player::find($pl1);
+                $player_1->countWin = $player_1->countWin - 1;
+                $player_1->save();
+
+                $player_2_loss = Player::find($pl2);
+                $player_2_loss->countLoss = $player_2_loss->countLoss - 1;
+                $player_2_loss->save();
+            }
+
+            if($win == $pl2){
+
+                $player_2 = Player::find($pl2);
+                $player_2->countWin = $player_2->countWin - 1;
+                $player_2->save();
+
+                $player_1_loss = Player::find($pl1);
+                $player_1_loss->countLoss = $player_1_loss->countLoss - 1;
+                $player_1_loss->save();
+            }
 
             $p = PR::where('raund_id', $id)->get();
 
@@ -325,7 +353,12 @@ class TurnirController //extends Controller
 
                 $players = Player::find($request->input('win_player_id'));
                 $players->countPointStart = $players->countPointStart + $request->input('pointPlayer01');
+                $player->countWin = $player->countWin + 1;
                 $players->save();
+
+                $pl2_loss =  Player::find($pl2);
+                $pl2_loss->countLoss = $player->countLoss + 1;
+                $pl2_loss->save();
 
             }elseif($winer == $pl2){
 
@@ -344,7 +377,12 @@ class TurnirController //extends Controller
 
                 $players2 = Player::find($request->input('win_player_id'));
                 $players2->countPointStart = $players2->countPointStart + $request->input('pointPlayer02');
+                $players2->countWin = $players2->countWin + 1;
                 $players2->save();
+
+                $pl1_loss =  Player::find($pl1);
+                $pl1_loss->countLoss = $player->countLoss + 1;
+                $pl1_loss->save();
 
             }else{
                 $stavka3 = Stavka::where("raund_id",$id)->where("player_id", "!=", $winer)->get();

@@ -111,8 +111,8 @@
             </a>
           </li>
           <li>
-            <a href="/admin/forecast">
-              <span class="link-title">Прогноз *</span>
+            <a href="/forecast">
+              <span class="link-title">Прогноз</span>
             </a>
           </li>
          

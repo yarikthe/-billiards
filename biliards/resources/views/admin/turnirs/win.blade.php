@@ -21,7 +21,7 @@
                         <label>Очкі Переможеця</label>
                              <input type="number" id="pointPlayer01" class="form-control" name="pointPlayer01" min="1" max="1000">
                         <label>Очкі програвшого</label>
-                             <input type="number" id="pointPlayer01" class="form-control" name="pointPlayer01" min="1" max="1000">
+                             <input type="number" id="pointPlayer02" class="form-control" name="pointPlayer02" min="1" max="1000">
                                 
                       </div>
                     </div>   
