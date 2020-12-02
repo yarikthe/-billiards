@@ -23,9 +23,20 @@
             <div class="col-md-6"> 
                {!! $pie_chart->html() !!}<hr>
             </div>
+
+            <div class="col-md-6"> 
+               {!! $areaspline_chart->html() !!}<hr>
+            </div>
  
             <br/><br/>
-        
+
+            <div class="col-md-6"> 
+               {!! $line_chart->html() !!}<hr>
+            </div>
+
+            <div class="col-md-6"> 
+               {!! $donut_chart->html() !!}<hr>
+            </div>
  
             <br/><br/>
           </div>
@@ -38,7 +49,12 @@
  
     {!! $pie_chart->script() !!}
 
- 
+    {!! $line_chart->script() !!}
+
+    {!! $areaspline_chart->script() !!}
+
+    {!! $donut_chart->script() !!}
+    
 
 
 @else

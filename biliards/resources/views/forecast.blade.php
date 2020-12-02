@@ -2,7 +2,12 @@
 
 @section('content')
 <div class="container text-left shadow rounded-top mt-5 pt-5">
-
+	@if(Auth::user())
+	<a href="/home">Назад</a>
+	@else
+	<a href="/">Назад</a>
+	@endif
+	
     <h1>
         Прогнозування
     </h1>
@@ -11,7 +16,10 @@
     </p>
     <hr>
     <div class="content">
-    	Гравці: 
+		<div class="col-md-12"> 
+				{!! $line_chart->html() !!}<hr>
+		</div>
+    	Таблиця прогнозування ймовірності виграшу гравця: 
 	    <hr>
 	    <div class="d-flex justify-content-between  bg-info text-white shadow-lg rounde-lg m-2 p-2">
 				    	
@@ -79,6 +87,10 @@
 	    
 	    @endforeach
     </div>
+	
+	{!! Charts::scripts() !!}
+ 
+    {!! $line_chart->script() !!}
 
     <hr>
 </div>

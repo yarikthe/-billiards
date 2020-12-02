@@ -21,9 +21,20 @@
                           <input type="date" id="dateBorn"  value="{{ $player->dateBorn }}" name="dateBorn" class="form-control" value="">
                           </div>
                           <div class="form-group"><label>Звання спортивне</label>
-						  	
-						    	<input type="text" name="sportTitul"   value="{{ $player->sportTitul }}" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" placeholder="Спортивне звання" required>
-						  	
+								  
+						  <div class="form-group"><label>Звання спортивне</label>
+							  
+							  <select name="sportTitul" id="sportTitul" class="form-control">
+								<option value="{{ $player->sportTitul }}" selected="true" disabled>{{ $player->sportTitul }}</option>
+								<option value="Master">Майстер</option>
+								<option value="Pro">Професіонал</option>
+								<option value="New">Новачок</option>
+								<option value="Midl">Середній рівень</option>
+
+							</select>
+						
+					  </div>
+						    	
 						  </div>
                           <div class="form-group"><label>Місто</label>
 						  	

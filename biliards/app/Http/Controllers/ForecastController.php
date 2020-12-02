@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Player;
-
+use Charts;
 // Import library
 use Phpml\Regression\SVR;
 use Phpml\SupportVectorMachine\Kernel;
@@ -20081,9 +20081,36 @@ class ForecastController //extends Controller
             array_unshift($resultPredictPlayerWin, [$id,$resPredict]);
                    
         }
+        
+
+        // chart
+
+        $data_player = array();
+		$data_pred = array();
+
+		foreach($players as $key => $value){
+
+            for($i = 0; $i < $players->count();$i++)
+            {
+                if($resultPredictPlayerWin[$i][0] == $value->id)
+                {
+                    $data_player[] = $value->name;
+                    $data_pred[] = $resultPredictPlayerWin[$i][1];
+                }
+            }
+
+        }
 
 
-        return view("forecast", compact("resultPredictPlayerWin","players"));
+        $line_chart = Charts::create('line', 'highcharts')
+        			    ->title('Прогнозування ймовірності виграшу гравція (%)')
+        			    ->elementLabel('Гравець')
+        			    ->labels($data_player)
+        			    ->values($data_pred)
+        			    ->dimensions(1000,500)
+        			    ->responsive(true);
+
+        return view("forecast", compact("resultPredictPlayerWin","players", "line_chart"));
     }
 
 }
