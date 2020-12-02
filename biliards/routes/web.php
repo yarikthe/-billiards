@@ -26,9 +26,9 @@ Auth::routes(['verify' => true]);
 Route::get('/', function () { 
 
 	$players = Player::all();
-	$turnir = Turnir::where("isDone", 0)->where("isPiblic",1)->get();
+	$turnir = Turnir::where("isDone", 0)->where("isPiblic",1)->orderBy("created_at", "DESC")->get();
 
-	$turnirold = Turnir::where("isDone", 1)->where("isPiblic", 1)->get();
+	$turnirold = Turnir::where("isDone", 1)->where("isPiblic", 1)->orderBy("created_at", "DESC")->get();
 
 	return view('welcome', compact("players", "turnir", "turnirold")); 
 });

@@ -141,9 +141,9 @@ class AdminController //extends Controller
     public function indexturnirs()
     {   //whereBetween('reservation_from', [$from, $to])->get();
         //->where('isPublic', 1)
-        $turnirs = Turnir::where('isDone', 0)->where('date_start', '<', date('Y-m-d H:i:s'))->get();
-        $turnirsclose = Turnir::where('isDone', 1)->get();
-        $turnirfuture = Turnir::where('date_start', '>', date('Y-m-d H:i:s'))->where('isDone', 0)->get();
+        $turnirs = Turnir::where('isDone', 0)->where('date_start', '<', date('Y-m-d H:i:s'))->orderBy("created_at", "DESC")->get();
+        $turnirsclose = Turnir::where('isDone', 1)->orderBy("created_at", "DESC")->get();
+        $turnirfuture = Turnir::where('date_start', '>', date('Y-m-d H:i:s'))->where('isDone', 0)->orderBy("created_at", "DESC")->get();
 
         return view('admin.turnirs.index', compact("turnirs", "turnirsclose", "turnirfuture"));
     }

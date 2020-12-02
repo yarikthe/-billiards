@@ -20,9 +20,9 @@ class TurnirController //extends Controller
     public function index()
     {   //whereBetween('reservation_from', [$from, $to])->get();
         //->where('isPublic', 1)
-        $turnirs = Turnir::where('organizator_id', Auth::user()->id)->where('isDone', 0)->where('date_start', '<', date('Y-m-d H:i:s'))->get();
-        $turnirsclose = Turnir::where('organizator_id', Auth::user()->id)->where('isDone', 1)->get();
-        $turnirfuture = Turnir::where('organizator_id', Auth::user()->id)->where('date_start', '>', date('Y-m-d H:i:s'))->where('isDone', 0)->get();
+        $turnirs = Turnir::where('organizator_id', Auth::user()->id)->where('isDone', 0)->where('date_start', '<', date('Y-m-d H:i:s'))->orderBy("created_at", "DESC")->get();
+        $turnirsclose = Turnir::where('organizator_id', Auth::user()->id)->where('isDone', 1)->orderBy("created_at", "DESC")->get();
+        $turnirfuture = Turnir::where('organizator_id', Auth::user()->id)->where('date_start', '>', date('Y-m-d H:i:s'))->where('isDone', 0)->orderBy("created_at", "DESC")->get();
 
         return view('turnirs.index', compact("turnirs", "turnirsclose", "turnirfuture"));
     }

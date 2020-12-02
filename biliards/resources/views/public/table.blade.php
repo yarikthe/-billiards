@@ -45,30 +45,20 @@
         <div class="col-md-9">
 
             <table>
-                <tr>
-                    <td>
-                    q
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    2
-                    </td>
-                </tr>
-            </table>
             @foreach($raund as $key => $value)
-                
+            <tr><td>
                 <br>
-                {{
-                    $value->name
-                }}
+                Raund {{$value->name}}
+                @foreach($raund as $keyR => $valueR)
+                    @if($value->name ==  $valueR->name and $key == $keyR)
+                    
                 <br>
-                <div class="card-item-table p-2 rounded-lg shadow col-md-2"> <div class="d-flex justify-content-between">
+                <div class="card-item-table p-2 rounded-lg shadow"> <div class="d-flex justify-content-between">
                 @foreach($player as $key => $value3)
                
-                    @if($value->player_01_ID == $value3->id )
+                    @if($value->player_01_ID == $value3->id)
 
-                       Player1
+                       Player1 -
                         {{
                             $value3->name
                         }} 
@@ -77,7 +67,7 @@
                     
                     @if($value->player_02_ID == $value3->id)
 
-                       Player2
+                       Player2 -
                         {{
                             $value3->name
                         }} 
@@ -86,17 +76,26 @@
                     
                     @if($value->win_player_id == $value3->id )
 
-                       Win
-                        {{
+                       
+                        <u class="p-1 bg-info">Win -{{
                             $value3->name
-                        }} 
+                        }} </u>
                         <br>
                     @endif
                     
                 @endforeach</div>
                 </div>
-                
+
+                </td>
+                </tr>
+                @else
+                        </td>
+                        <td>
+                    @endif
+               @endforeach
             @endforeach
+
+            </table>
             
             
         </div>

@@ -166,7 +166,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="/organizator/turnir/raund/insert" method="POST">
+      <form action="/admin/turnir/raund/insert" method="POST">
       @csrf 
         <div class="modal-body">
             <input type="text" hidden value="{{ $show->id }}" name="turnir_id">
@@ -251,7 +251,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="{{ route('turnir.win-raund',$value->id) }}" method="POST">
+      <form action="{{ route('adminturnir.win-raund',$value->id) }}" method="POST">
       @csrf 
         <div class="modal-body">
             <input type="text" hidden value="{{ $show->id }}" name="turnir_id">

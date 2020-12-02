@@ -12,7 +12,7 @@
     </div>                        
    </div>
    <hr>
-        <form action="/organizator/turnir/insert" method="POST">
+        <form action="/admin/turnir/insert" method="POST">
             @csrf  
             <div class="d-flex justify-content-between">
                 <div class="info col-md-6">
